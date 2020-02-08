@@ -10,7 +10,7 @@
 
 Name:           ImageMagick
 Version:        %{mfr_version}.%{mfr_revision}
-Release:        1.1
+Release:        1.3
 Summary:        Viewer and Converter for Images
 
 Group:          Applications/Multimedia
@@ -24,13 +24,15 @@ BuildRequires: gcc
 BuildRequires: libtool-ltdl-devel
 BuildRequires: libjpeg-turbo-devel
 BuildRequires: libpng-devel
+BuildRequires: libtiff-devel
 Requires:	   libstdc++
 Requires:	   libgcc
 Requires:	   libgomp
 Requires:	   libjpeg-turbo
 Requires:	   libpng
+Requires:      libtiff
 # delegation of video things:
-Requires:      ffmpeg-tools
+Recommends:      ffmpeg-tools
 #Requires:	   bzip2-libs
 
 %package devel
@@ -116,9 +118,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*-config.1.gz
 
 %changelog
+* Sat Feb  8 12:03:51 CET 2020 Nephros <sailfish@nephros.org> 6.8.8.10-1.3
+- make dependency on ffmpeg-tools weak (recommends)
+* Sat Feb  8 11:34:55 CET 2020 Nephros <sailfish@nephros.org> 6.8.8.10-1.2
+- add tiff support/dep
+* Fri Feb  7 20:23:43 CET 2020 Nephros <sailfish@nephros.org> 6.8.8.10-1.1
+- bump to upstream latest
 * Fri Feb  7 15:29:29 CET 2020 Nephros <sailfish@nephros.org> 6.8.8.7-1.1
 - build exact version of NielDK repo
 
-# this is a non-ASCII character to shut up rpmlint: ÃÂÃÂÃÂÃÂÃÂÃÂ«
+# this is a non-ASCII character to shut up rpmlint: «
 # vim: fileencoding=utf-8
 
