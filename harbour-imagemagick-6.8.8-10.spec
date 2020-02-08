@@ -1,16 +1,16 @@
 %define debug_build    0
-%define maj            7
-%define mfr_version    %{maj}.0.9
-%define mfr_revision   21
+%define maj            6
+%define mfr_version    %{maj}.8.8
+%define mfr_revision   10
 %define source_version %{mfr_version}-%{mfr_revision}
 
 %define quantum_depth  16
-%define clibver        7
+%define clibver        2
 %define libspec        -%{maj}_Q%{quantum_depth}HDRI
 
 Name:           ImageMagick
 Version:        %{mfr_version}.%{mfr_revision}
-Release:        2
+Release:        1.1
 Summary:        Viewer and Converter for Images
 
 Group:          Applications/Multimedia
@@ -81,17 +81,17 @@ rm -rf $RPM_BUILD_ROOT
 %license LICENSE
 %doc ChangeLog NEWS.txt
 %dir %{_sysconfdir}/ImageMagick-%{maj}
+%config %{_sysconfdir}/ImageMagick-%{maj}/coder.xml
 %config %{_sysconfdir}/ImageMagick-%{maj}/colors.xml
 %config %{_sysconfdir}/ImageMagick-%{maj}/delegates.xml
 %config %{_sysconfdir}/ImageMagick-%{maj}/log.xml
+%config %{_sysconfdir}/ImageMagick-%{maj}/magic.xml
 %config %{_sysconfdir}/ImageMagick-%{maj}/mime.xml
 %config %{_sysconfdir}/ImageMagick-%{maj}/policy.xml
 %config %{_sysconfdir}/ImageMagick-%{maj}/quantization-table.xml
 %config %{_sysconfdir}/ImageMagick-%{maj}/thresholds.xml
-%config %{_sysconfdir}/ImageMagick-%{maj}/type-apple.xml
 %config %{_sysconfdir}/ImageMagick-%{maj}/type-dejavu.xml
 %config %{_sysconfdir}/ImageMagick-%{maj}/type-ghostscript.xml
-%config %{_sysconfdir}/ImageMagick-%{maj}/type-urw-base35.xml
 %config %{_sysconfdir}/ImageMagick-%{maj}/type-windows.xml
 %config %{_sysconfdir}/ImageMagick-%{maj}/type.xml
 %{_bindir}/[^MW]*
@@ -106,8 +106,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libMagickCore*.so
 %{_libdir}/libMagickWand*.so
 %dir %{_includedir}/ImageMagick*
-%{_includedir}/ImageMagick*/MagickCore
-%{_includedir}/ImageMagick*/MagickWand
+%{_includedir}/ImageMagick*/magick
+%{_includedir}/ImageMagick*/wand
 %{_bindir}/MagickCore-config
 %{_bindir}/MagickWand-config
 %{_libdir}/pkgconfig/MagickCore*.pc
@@ -116,11 +116,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*-config.1.gz
 
 %changelog
-* Fri Feb  7 14:41:29 CET 2020 Nephros <sailfish@nephros.org> 7.0.9.21
-- add proper files/install section, thanks, SuSE spec file!
-* Fri Feb  7 13:46:29 CET 2020 Nephros <sailfish@nephros.org> 7.0.9
-- initial creation of .spec file
+* Fri Feb  7 15:29:29 CET 2020 Nephros <sailfish@nephros.org> 6.8.8.7-1.1
+- build exact version of NielDK repo
 
-# this is a non-ASCII character to shut up rpmlint: ÃÂÃÂÃÂ«
+# this is a non-ASCII character to shut up rpmlint: ÃÂÃÂÃÂÃÂÃÂÃÂ«
 # vim: fileencoding=utf-8
 
