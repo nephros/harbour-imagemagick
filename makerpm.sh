@@ -31,15 +31,19 @@ pkg="${rbr}/RPMS/${arch}/${bn}-${ver}-${rel}.${arch}.rpm"
 
 # make build root structure
 mkdir -p ${rbr}/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS} 2>/dev/null
-rm -r ${brb}
+[[ -e ${brb} ]] && rm -r ${brb}
 # link spec file
 if [ ! -e ${rbr}/SPECS/${bn}.spec ]; then
 	ln -s ${spec} ${rbr}/SPECS/${bn}.spec
 fi
-echo all set up, trying build...
-# build rpm, do not clean sources
-cd ${rbr}
-rpmbuild --buildroot=${brb} -bb ${rbr}/SPECS/${bn}.spec
+if [[ -e ${rbr} ]]; then
+  echo all set up, trying build...
+  cd ${rbr}
+  # build rpm, do not clean sources
+  rpmbuild --buildroot=${brb} -bb ${rbr}/SPECS/${bn}.spec
+else
+  echo error: ${rbr} does not exist.
+fi
 
 echo done.
 
