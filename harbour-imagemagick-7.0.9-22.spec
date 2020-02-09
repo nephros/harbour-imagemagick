@@ -10,7 +10,7 @@
 
 Name:           ImageMagick
 Version:        %{mfr_version}.%{mfr_revision}
-Release:        1
+Release:        2
 Summary:        Viewer and Converter for Images
 
 Group:          Applications/Multimedia
@@ -117,7 +117,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/MagickWand*.pc
 %{_mandir}/man1/*-config.1.gz
 
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+
 %changelog
+* Sun Feb  9 13:06:09 CET 2020 Nephros <sailfish@nephros.org> 7.0.9.22-2
+- run ldconfig in post/postun
 * Sun Feb  9 12:02:09 CET 2020 Nephros <sailfish@nephros.org> 7.0.9.22-1
 - bump version to -22, move doc and man to -devel package
 * Sat Feb  8 12:03:51 CET 2020 Nephros <sailfish@nephros.org> 7.0.9.21-4
