@@ -123,16 +123,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Sun Feb  9 13:06:09 CET 2020 Nephros <sailfish@nephros.org> 7.0.9.22-2
 - run ldconfig in post/postun
-* Sun Feb  9 12:02:09 CET 2020 Nephros <sailfish@nephros.org> 7.0.9.22-1
 - bump version to -22, move doc and man to -devel package
-* Sat Feb  8 12:03:51 CET 2020 Nephros <sailfish@nephros.org> 7.0.9.21-4
-- make dependency on ffmpeg-tools weak (recommends)
-* Sat Feb  8 11:34:55 CET 2020 Nephros <sailfish@nephros.org> 7.0.9.21-3
-- add tiff support/dep
-* Fri Feb  7 14:41:29 CET 2020 Nephros <sailfish@nephros.org> 7.0.9.21
-- add proper files/install section, thanks, SuSE spec file!
-* Fri Feb  7 13:46:29 CET 2020 Nephros <sailfish@nephros.org> 7.0.9
-- initial creation of .spec file
 
 # this is a non-ASCII character to shut up rpmlint: «
 # vim: fileencoding=utf-8
