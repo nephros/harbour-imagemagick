@@ -40,7 +40,7 @@ if [[ -e ${rbr} ]]; then
   echo all set up, trying build...
   cd ${rbr}
   # build rpm, do not clean sources
-  /bin/nice rpmbuild --buildroot=${brb} -bb ${rbr}/SPECS/${bn}.spec
+  /bin/nice rpmbuild --quiet --buildroot=${brb} -bb ${rbr}/SPECS/${bn}.spec
 else
   echo error: ${rbr} does not exist.
 fi
