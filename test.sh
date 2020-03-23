@@ -6,7 +6,7 @@ fi
 tmp=$( mktemp -d /tmp/imtest_XXXXX)
 revfmt=png
 
-for inp in $1/images/*
+for inp in $1/*
   do
 	[[ -f $inp ]] || continue
 	echo ${inp##*/}
