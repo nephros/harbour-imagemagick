@@ -1,7 +1,7 @@
 %define debug_build    0
 %define maj            7
-%define mfr_version    %{maj}.0.9
-%define mfr_revision   22
+%define mfr_version    %{maj}.0.10
+%define mfr_revision   7
 %define source_version %{mfr_version}-%{mfr_revision}
 
 %define quantum_depth  16
@@ -10,7 +10,7 @@
 
 Name:           ImageMagick
 Version:        %{mfr_version}.%{mfr_revision}
-Release:        2
+Release:        1
 Summary:        Viewer and Converter for Images
 
 Group:          Applications/Multimedia
@@ -121,6 +121,10 @@ rm -rf $RPM_BUILD_ROOT
 %postun -p /sbin/ldconfig
 
 %changelog
+* Thu Apr 23 16:50:46 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.7-1
+- version bump, fix security issue
+* Mon Mar  2 17:01:35 CET 2020 Nephros <sailfish@nephros.org> 7.0.9.27-1
+- version bump
 * Sun Feb  9 13:06:09 CET 2020 Nephros <sailfish@nephros.org> 7.0.9.22-2
 - run ldconfig in post/postun
 - bump version to -22, move doc and man to -devel package
