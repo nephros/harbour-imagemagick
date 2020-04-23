@@ -1,16 +1,16 @@
 %define debug_build    0
 %define maj            6
-%define mfr_version    %{maj}.8.8
-%define mfr_revision   10
+%define mfr_version    %{maj}.9.11
+%define mfr_revision   7
 %define source_version %{mfr_version}-%{mfr_revision}
 
 %define quantum_depth  16
-%define clibver        2
+%define clibver        6
 %define libspec        -%{maj}_Q%{quantum_depth}HDRI
 
 Name:           ImageMagick
 Version:        %{mfr_version}.%{mfr_revision}
-Release:        1.3
+Release:        1.1
 Summary:        Viewer and Converter for Images
 
 Group:          Applications/Multimedia
@@ -43,11 +43,11 @@ Requires:       glibc-devel
 
 %description
 ImageMagick is a software suite to create, edit, compose, or convert bitmap
-images. 
+images.
 
 %description devel
 ImageMagick is a software suite to create, edit, compose, or convert bitmap
-images. 
+images.
 Development files.
 
 
@@ -118,6 +118,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*-config.1.gz
 
 %changelog
+* Thu Apr 23 16:50:46 CEST 2020 Nephros <sailfish@nephros.org> 6.9.11.7-1.1
+- version bump, fix security issue
+* Mon Mar  2 17:01:35 CET 2020 Nephros <sailfish@nephros.org> 6.9.10.97-1.1
+- version bump
 * Sat Feb  8 12:03:51 CET 2020 Nephros <sailfish@nephros.org> 6.8.8.10-1.3
 - make dependency on ffmpeg-tools weak (recommends)
 * Sat Feb  8 11:34:55 CET 2020 Nephros <sailfish@nephros.org> 6.8.8.10-1.2
