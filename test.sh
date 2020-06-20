@@ -3,7 +3,7 @@ if [[ ! -d $1 ]] ; then
 echo "$1 not a dir, must point to a dir (e.g. ../../rpmbuild/BUILD/ImageMagick-7.0.10-1/images), exit."
 exit 1
 fi
-tmp=$( mktemp -d /tmp/imtest_XXXXX)
+tmp=$(mktemp -d -t imtest_XXXXXX)
 revfmt=png
 
 for inp in $1/*
