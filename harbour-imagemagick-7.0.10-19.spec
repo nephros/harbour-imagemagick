@@ -10,7 +10,7 @@
 
 Name:           ImageMagick
 Version:        %{mfr_version}.%{mfr_revision}
-Release:        1
+Release:        2
 Summary:        Viewer and Converter for Images
 
 Group:          Applications/Multimedia
@@ -78,9 +78,6 @@ make
 %install
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
-# uninstall that again, to make rpmbuild shut up about unpackaged files:
-#make uninstall-docDATA DESTDIR=$RPM_BUILD_ROOT
-#make uninstall-data-html DESTDIR=$RPM_BUILD_ROOT
 
 
 %clean
@@ -105,9 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/ImageMagick-%{maj}/type-windows.xml
 %config %{_sysconfdir}/ImageMagick-%{maj}/type.xml
 
-%config %{_usr}/share/ImageMagick-%{maj}/francais.xml
-%config %{_usr}/share/ImageMagick-%{maj}/english.xml
-%config %{_usr}/share/ImageMagick-%{maj}/locale.xml
+%{_usr}/share/ImageMagick-%{maj}/francais.xml
+%{_usr}/share/ImageMagick-%{maj}/english.xml
+%{_usr}/share/ImageMagick-%{maj}/locale.xml
 
 %{_bindir}/[^MW]*
 %{_libdir}/libMagickCore*.so.%{clibver}*
@@ -135,6 +132,11 @@ rm -rf $RPM_BUILD_ROOT
 %postun -p /sbin/ldconfig
 
 %changelog
+* Sat Jun 20 21:23:14 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.19-2
+- version bump
+- first build on SFOS 3.3
+- disable static build
+- disable doc generation/installation
 * Sat Jun 20 17:27:04 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.19-1
 - version bump
 - first build on SFOS 3.3
