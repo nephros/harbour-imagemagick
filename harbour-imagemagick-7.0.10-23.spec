@@ -10,7 +10,7 @@
 
 Name:           ImageMagick
 Version:        %{mfr_version}.%{mfr_revision}
-Release:        1
+Release:        2
 Summary:        Viewer and Converter for Images
 
 # See https://sailfishos.org/wiki/Software_Packaging#Differences_to_Fedora_guidelines
@@ -42,6 +42,8 @@ Summary:        Development files for ImageMagick
 Group:          Development/Libraries
 Requires:       ImageMagick = %{version}
 Requires:       glibc-devel
+
+%{debug_package}
 
 %description
 ImageMagick is a software suite to create, edit, compose, or convert bitmap
@@ -83,7 +85,7 @@ Development files.
 %install
 rm -rf $RPM_BUILD_ROOT
 #make install DESTDIR=$RPM_BUILD_ROOT
-make install-strip DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
 
 # See https://sailfishos.org/wiki/Software_Packaging#Differences_to_Fedora_guidelines
 #%%clean
@@ -138,10 +140,11 @@ make install-strip DESTDIR=$RPM_BUILD_ROOT
 %postun -p /sbin/ldconfig
 
 %changelog
-* Wed Jul 15 08:20:56 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.23
+* Wed Jul 15 21:22:46 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.23
 - version bump
 - try new make options, use install-strip for a hopefully smaller binary
 - small spec file adjustments
+- use debug_package macro for stripped debug info
 * Sat Jun 20 21:23:14 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.19
 - version bump
 - first build on SFOS 3.3
