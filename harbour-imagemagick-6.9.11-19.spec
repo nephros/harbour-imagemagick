@@ -10,7 +10,7 @@
 
 Name:           ImageMagick
 Version:        %{mfr_version}.%{mfr_revision}
-Release:        1.1
+Release:        1
 Summary:        Viewer and Converter for Images
 
 Group:          Applications/Multimedia
@@ -32,7 +32,7 @@ Requires:	   libjpeg-turbo
 Requires:	   libpng
 Requires:      libtiff
 # delegation of video things:
-Recommends:      ffmpeg-tools
+Recommends:    ffmpeg-tools
 #Requires:	   bzip2-libs
 
 %package devel
@@ -59,14 +59,20 @@ Development files.
 %configure \
   --disable-silent-rules \
   --enable-shared \
+  --disable-static \
   --without-frozenpaths \
   --without-magick_plus_plus \
   --with-modules \
   --without-perl \
   --without-x \
   --without-lcms \
-  --without-gcc-arch
-make %{?_smp_mflags}
+  --without-dps \
+  --without-gcc-arch \
+  --disable-docs
+
+
+# Do *NOT* use %%{?_smp_mflags}, this causes PerlMagick to be silently misbuild
+make
 
 
 %install
@@ -96,8 +102,12 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/ImageMagick-%{maj}/type-ghostscript.xml
 %config %{_sysconfdir}/ImageMagick-%{maj}/type-windows.xml
 %config %{_sysconfdir}/ImageMagick-%{maj}/type.xml
+
+%{_usr}/share/ImageMagick-%{maj}/francais.xml
+%{_usr}/share/ImageMagick-%{maj}/english.xml
+%{_usr}/share/ImageMagick-%{maj}/locale.xml
+
 %{_bindir}/[^MW]*
-%{_mandir}/man1/*
 %{_libdir}/libMagickCore*.so.%{clibver}*
 %{_libdir}/libMagickWand*.so.%{clibver}*
 %dir %{_libdir}/ImageMagick*
@@ -107,6 +117,8 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %{_libdir}/libMagickCore*.so
 %{_libdir}/libMagickWand*.so
+%{_libdir}/libMagickCore*.la
+%{_libdir}/libMagickWand*.la
 %dir %{_includedir}/ImageMagick*
 %{_includedir}/ImageMagick*/magick
 %{_includedir}/ImageMagick*/wand
@@ -115,11 +127,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/MagickCore*.pc
 %{_libdir}/pkgconfig/ImageMagick*.pc
 %{_libdir}/pkgconfig/MagickWand*.pc
-%{_mandir}/man1/*-config.1.gz
 
 %changelog
 * Sat Jun 20 17:27:04 CEST 2020 Nephros <sailfish@nephros.org> 6.9.11.19-1
-- version bump, first build on SFOS 3.3
+- version bump
+- first build on SFOS 3.3
+- disable static build
+- disable doc generation/installation
 * Thu Apr 23 16:50:46 CEST 2020 Nephros <sailfish@nephros.org> 6.9.11.7-1.1
 - version bump, fix security issue
 * Mon Mar  2 17:01:35 CET 2020 Nephros <sailfish@nephros.org> 6.9.10.97-1.1
