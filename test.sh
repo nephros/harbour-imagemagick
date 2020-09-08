@@ -17,7 +17,7 @@ for inp in $1/*
   do
 	[[ -f $inp ]] || continue
 	echo ${inp##*/}
-	for fmt in pdf bmp png gif tiff jpg xbm xpm tga ps pnm pgx
+	for fmt in pdf bmp png gif tiff jpg xbm xpm tga ps pnm pgx djvu
 	do
 		$cvt $inp -resize x240 $tmp/out.${fmt} || echo "${inp##*/} to $fmt failed."
 		#convert $tmp/out.${fmt} $tmp/reverse${fmt}.$revfmt || echo "$fmt reverse to $revfmt failed." 
