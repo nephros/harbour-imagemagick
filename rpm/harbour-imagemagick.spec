@@ -43,7 +43,8 @@ Group:          Development/Libraries
 Requires:       ImageMagick = %{version}
 Requires:       glibc-devel
 
-%{debug_package}
+# mb2/gitlab CI does not like this:
+#%%{debug_package}
 
 %description
 ImageMagick is a software suite to create, edit, compose, or convert bitmap
@@ -139,6 +140,8 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %postun -p /sbin/ldconfig
 
 %changelog
+* Wed Sep  9 17:03:44 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.29
+- integrate with GitLab CI
 * Tue Sep  8 12:07:39 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.29
 - version bump
 * Wed Jul 15 21:22:46 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.23
