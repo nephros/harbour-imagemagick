@@ -19,8 +19,8 @@ stages:
     - cp -rv rpm/* ~/build/rpm/
     - cp -rv files/* ~/build/rpm/
     - pushd ~/build
-    - git clone --depth 1 --branch ${SRCVER} ${SRCURI} ~/build/upstream
-    - mb2 -t SailfishOS-$SFOS_VERSION-armv7hl --specfile .rpm/${SPECNAME1} -x $BUILDID build --doprep
+    - git clone --depth 1 --branch ${SRCVER} ${SRCURI} upstream
+    - mb2 -t SailfishOS-$SFOS_VERSION-armv7hl --specfile ./rpm/${SPECNAME1} -x $BUILDID build --doprep
     - popd
     - mkdir output
     - cp -rv ~/build/RPMS/* output/
