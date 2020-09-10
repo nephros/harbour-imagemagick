@@ -10,7 +10,7 @@
 
 Name:           ImageMagick
 Version:        %{mfr_version}.%{mfr_revision}
-Release:        2
+Release:        3
 Summary:        Viewer and Converter for Images
 
 # See https://sailfishos.org/wiki/Software_Packaging#Differences_to_Fedora_guidelines
@@ -140,9 +140,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %postun -p /sbin/ldconfig
 
 %changelog
-* Wed Sep  9 17:03:44 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.29
+* Wed Sep  9 17:03:44 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.29-3
 - integrate with GitLab CI
-* Tue Sep  8 12:07:39 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.29
+* Tue Sep  8 12:07:39 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.29-2
 - version bump
 * Wed Jul 15 21:22:46 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.23
 - version bump
