@@ -68,7 +68,8 @@ Development files.
 
 %build
 %configure \
-  --disable-silent-rules \
+  --quiet \
+  --enable-silent-rules \
   --enable-shared \
   --disable-static \
   --disable-docs \
