@@ -10,7 +10,7 @@
 
 Name:           ImageMagick
 Version:        %{mfr_version}.%{mfr_revision}
-Release:        3
+Release:        5
 Summary:        Viewer and Converter for Images
 
 # See https://sailfishos.org/wiki/Software_Packaging#Differences_to_Fedora_guidelines
@@ -23,16 +23,22 @@ Source0:        https://imagemagick.org/download/ImageMagick-%{mfr_version}-%{mf
 #BuildRoot: %%(mktemp -ud %%{_tmppath}/%%{name}-%%{version}-%%{release}-XXXXXX)
 
 BuildRequires: gcc
-BuildRequires: libtool-ltdl-devel
+BuildRequires: bzip2-devel
 BuildRequires: libjpeg-turbo-devel
 BuildRequires: libpng-devel
 BuildRequires: libtiff-devel
-Requires:	   libstdc++
-Requires:	   libgcc
-Requires:	   libgomp
-Requires:	   libjpeg-turbo
-Requires:	   libpng
-Requires:      libtiff
+BuildRequires: libtool-ltdl-devel
+BuildRequires: libwebp-devel
+BuildRequires: xz-devel
+Requires:   libgcc
+Requires:   libgomp
+Requires:   bzip2-devel
+Requires:   libjpeg-turbo
+Requires:   libpng
+Requires:   libstdc++
+Requires:   libtiff
+Requires:   libwebp
+Requires:   xz-libs
 # delegation of video things:
 Recommends:    ffmpeg-tools
 #Requires:	   bzip2-libs
@@ -65,16 +71,28 @@ Development files.
   --disable-silent-rules \
   --enable-shared \
   --disable-static \
+  --disable-docs \
+  --disable-deprecated \
   --without-frozenpaths \
   --without-magick_plus_plus \
   --with-modules \
   --without-perl \
-  --without-x \
-  --without-lcms \
   --without-dps \
+  --without-fftw \
+  --without-flif \
+  --without-fpx \
   --without-gcc-arch \
-  --disable-docs \
-  --disable-deprecated
+  --without-heic \
+  --without-jbig \
+  --without-lcms \
+  --without-lqr \
+  --without-openexr \
+  --without-openjp2 \
+  --without-pango \
+  --without-raw \
+  --without-x \
+  --without-ziplib \
+  --without-zstd
 
 # Do *NOT* use %%{?_smp_mflags}, this causes PerlMagick to be silently misbuild
 # make
