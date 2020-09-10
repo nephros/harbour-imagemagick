@@ -15,11 +15,11 @@ stages:
     - export SPECNAME1="harbour-imagemagick.spec"
     - export BUILID=${SRCVER}-${CI_COMMIT_SHORT_SHA}-${CI_JOB_TOKEN}
   script:
+    - git clone --depth 1 --branch ${SRCVER} ${SRCURI} ~/build
     - mkdir -p ~/build/rpm
     - cp -rv rpm/* ~/build/rpm/
     - cp -rv files/* ~/build/rpm/
     - pushd ~/build
-    - git clone --depth 1 --branch ${SRCVER} ${SRCURI} upstream
     - mb2 -t SailfishOS-$SFOS_VERSION-armv7hl --specfile ./rpm/${SPECNAME1} -x $BUILDID build --doprep
     - popd
     - mkdir output
