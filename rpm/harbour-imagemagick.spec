@@ -1,7 +1,7 @@
 %define debug_build    0
 %define maj            7
 %define mfr_version    %{maj}.0.10
-%define mfr_revision   29
+%define mfr_revision   31
 %define source_version %{mfr_version}-%{mfr_revision}
 
 %define quantum_depth  16
@@ -10,7 +10,7 @@
 
 Name:           ImageMagick
 Version:        %{mfr_version}.%{mfr_revision}
-Release:        5
+Release:        1
 Summary:        Viewer and Converter for Images
 
 # See https://sailfishos.org/wiki/Software_Packaging#Differences_to_Fedora_guidelines
@@ -157,29 +157,6 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
-
-%changelog
-* Wed Sep  9 17:03:44 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.29-3
-- integrate with GitLab CI
-* Tue Sep  8 12:07:39 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.29-2
-- version bump
-* Wed Jul 15 21:22:46 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.23
-- version bump
-- try new make options, use install-strip for a hopefully smaller binary
-- small spec file adjustments
-- use debug_package macro for stripped debug info
-* Sat Jun 20 21:23:14 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.19
-- version bump
-- first build on SFOS 3.3
-- disable static build
-- disable doc generation/installation
-* Thu Apr 23 16:50:46 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.7-1
-- version bump, fix security issue
-* Mon Mar  2 17:01:35 CET 2020 Nephros <sailfish@nephros.org> 7.0.9.27-1
-- version bump
-* Sun Feb  9 13:06:09 CET 2020 Nephros <sailfish@nephros.org> 7.0.9.22-2
-- run ldconfig in post/postun
-- bump version to -22, move doc and man to -devel package
 
 # this is a non-ASCII character to shut up rpmlint: «
 # vim: fileencoding=utf-8
