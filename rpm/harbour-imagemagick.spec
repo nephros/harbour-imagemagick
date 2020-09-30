@@ -10,7 +10,7 @@
 
 Name:           ImageMagick
 Version:        %{mfr_version}.%{mfr_revision}
-Release:        1
+Release:        2
 Summary:        Viewer and Converter for Images
 
 # See https://sailfishos.org/wiki/Software_Packaging#Differences_to_Fedora_guidelines
@@ -32,7 +32,7 @@ BuildRequires: libwebp-devel
 BuildRequires: xz-devel
 Requires:   libgcc
 Requires:   libgomp
-Requires:   bzip2-devel
+Requires:   bzip2-libs
 Requires:   libjpeg-turbo
 Requires:   libpng
 Requires:   libstdc++
@@ -41,7 +41,6 @@ Requires:   libwebp
 Requires:   xz-libs
 # delegation of video things:
 Recommends:    ffmpeg-tools
-#Requires:	   bzip2-libs
 
 %package devel
 Summary:        Development files for ImageMagick
