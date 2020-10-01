@@ -1,19 +1,7 @@
-#%define debug_build    0
-#%define maj            7
-#%define mfr_version    %{maj}.0.10
-#%define mfr_revision   31
-#%define source_version %{mfr_version}-%{mfr_revision}
-#
-#%define quantum_depth  16
-#%define clibver        7
-#%define libspec        -%{maj}_Q%{quantum_depth}HDRI
-#
 Name:           ImageMagick
-Version:        7.0.10.31
-Release:        3
+Version:        %{mfr_version}.%{mfr_revision}
+Release:        4
 Summary:        Viewer and Converter for Images
-
-# See https://sailfishos.org/wiki/Software_Packaging#Differences_to_Fedora_guidelines
 Group:          Applications/Multimedia
 License:        ImageMagick
 URL:            https://imagemagick.org/
@@ -40,14 +28,9 @@ Requires:
   - libtiff
   - libwebp
   - xz-libs
-# delegation of video things:
-#Recommends:    ffmpeg-tools
 
 Description: |
     ImageMagick is a software suite to create, edit, compose, or convert bitmap images.
-
-#%prep
-#%setup -q -n ImageMagick-%{source_version}
 
 ConfigOptions:
   - --quiet
@@ -76,17 +59,7 @@ ConfigOptions:
   - --without-ziplib
   - --without-zstd
 
-# Do *NOT* use %%{?_smp_mflags}, this causes PerlMagick to be silently misbuild
-# make
-#make %{?_smp_mflags}
-# lets try this from the macros
-#%{make_build} -l6.5
 Builder: "none"
-
-
-#%install
-#rm -rf $RPM_BUILD_ROOT
-#make install DESTDIR=$RPM_BUILD_ROOT
 
 Files:
   - '%license LICENSE'
@@ -113,9 +86,6 @@ Files:
   - '%dir %{_libdir}/ImageMagick*'
   - '%{_libdir}/ImageMagick*/config*'
   - '%{_libdir}/ImageMagick*/modules*'
-
-#%post -p /sbin/ldconfig
-#%postun -p /sbin/ldconfig
 
 AutoSubPackages:
     - devel
