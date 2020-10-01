@@ -1,0 +1,144 @@
+#%define debug_build    0
+#%define maj            7
+#%define mfr_version    %{maj}.0.10
+#%define mfr_revision   31
+#%define source_version %{mfr_version}-%{mfr_revision}
+#
+#%define quantum_depth  16
+#%define clibver        7
+#%define libspec        -%{maj}_Q%{quantum_depth}HDRI
+#
+Name:           ImageMagick
+Version:        7.0.10.31
+Release:        3
+Summary:        Viewer and Converter for Images
+
+# See https://sailfishos.org/wiki/Software_Packaging#Differences_to_Fedora_guidelines
+Group:          Applications/Multimedia
+License:        ImageMagick
+URL:            https://imagemagick.org/
+Sources:
+  - "https://imagemagick.org/download/ImageMagick-%{mfr_version}-%{mfr_revision}.tar.xz"
+
+PkgBR:
+  - gcc
+  - bzip2-devel
+  - libjpeg-turbo-devel
+  - libtool-ltdl-devel
+  - libwebp-devel
+PkgConfigBR:
+  - libpng
+  - libtiff-4
+  - liblzma
+Requires:
+  - libgcc
+  - libgomp
+  - bzip2-libs
+  - libjpeg-turbo
+  - libpng
+  - libstdc++
+  - libtiff
+  - libwebp
+  - xz-libs
+# delegation of video things:
+#Recommends:    ffmpeg-tools
+
+Description: |
+    ImageMagick is a software suite to create, edit, compose, or convert bitmap images.
+
+#%prep
+#%setup -q -n ImageMagick-%{source_version}
+
+ConfigOptions:
+  - --quiet
+  - --enable-silent-rules
+  - --enable-shared
+  - --disable-docs
+  - --disable-deprecated
+  - --without-frozenpaths
+  - --without-magick_plus_plus
+  - --with-modules
+  - --without-perl
+  - --without-dps
+  - --without-fftw
+  - --without-flif
+  - --without-fpx
+  - --without-gcc-arch
+  - --without-heic
+  - --without-jbig
+  - --without-lcms
+  - --without-lqr
+  - --without-openexr
+  - --without-openjp2
+  - --without-pango
+  - --without-raw
+  - --without-x
+  - --without-ziplib
+  - --without-zstd
+
+# Do *NOT* use %%{?_smp_mflags}, this causes PerlMagick to be silently misbuild
+# make
+#make %{?_smp_mflags}
+# lets try this from the macros
+#%{make_build} -l6.5
+Builder: "none"
+
+
+#%install
+#rm -rf $RPM_BUILD_ROOT
+#make install DESTDIR=$RPM_BUILD_ROOT
+
+Files:
+  - '%license LICENSE'
+  - '%dir %{_sysconfdir}/ImageMagick-%{maj}'
+  - '%config %{_sysconfdir}/ImageMagick-%{maj}/colors.xml'
+  - '%config %{_sysconfdir}/ImageMagick-%{maj}/delegates.xml'
+  - '%config %{_sysconfdir}/ImageMagick-%{maj}/log.xml'
+  - '%config %{_sysconfdir}/ImageMagick-%{maj}/mime.xml'
+  - '%config %{_sysconfdir}/ImageMagick-%{maj}/policy.xml'
+  - '%config %{_sysconfdir}/ImageMagick-%{maj}/quantization-table.xml'
+  - '%config %{_sysconfdir}/ImageMagick-%{maj}/thresholds.xml'
+  - '%config %{_sysconfdir}/ImageMagick-%{maj}/type-apple.xml'
+  - '%config %{_sysconfdir}/ImageMagick-%{maj}/type-dejavu.xml'
+  - '%config %{_sysconfdir}/ImageMagick-%{maj}/type-ghostscript.xml'
+  - '%config %{_sysconfdir}/ImageMagick-%{maj}/type-urw-base35.xml'
+  - '%config %{_sysconfdir}/ImageMagick-%{maj}/type-windows.xml'
+  - '%config %{_sysconfdir}/ImageMagick-%{maj}/type.xml'
+  - '%{_usr}/share/ImageMagick-%{maj}/francais.xml'
+  - '%{_usr}/share/ImageMagick-%{maj}/english.xml'
+  - '%{_usr}/share/ImageMagick-%{maj}/locale.xml'
+  - '%{_bindir}/[^MW]*'
+  - '%{_libdir}/libMagickCore*.so.%{clibver}*'
+  - '%{_libdir}/libMagickWand*.so.%{clibver}*'
+  - '%dir %{_libdir}/ImageMagick*'
+  - '%{_libdir}/ImageMagick*/config*'
+  - '%{_libdir}/ImageMagick*/modules*'
+
+#%post -p /sbin/ldconfig
+#%postun -p /sbin/ldconfig
+
+AutoSubPackages:
+    - devel
+#    - debuginfo
+#    - debugsource
+#      Summary:     Development files for ImageMagick
+#      Description: Development files for ImageMagick
+#      Group:       Development/Libraries
+#      Requires:
+#        - 'ImageMagick = %{version}'
+#        - 'glibc-devel'
+#      Files:
+#        - '%doc ChangeLog NEWS.txt'
+#        - '%{_libdir}/libMagickCore*.so'
+#        - '%{_libdir}/libMagickWand*.so'
+#        - '%{_libdir}/libMagickCore*.la'
+#        - '%{_libdir}/libMagickWand*.la'
+#        - '%dir %{_includedir}/ImageMagick*'
+#        - '%{_includedir}/ImageMagick*/MagickCore'
+#        - '%{_includedir}/ImageMagick*/MagickWand'
+#        - '%{_bindir}/MagickCore-config'
+#        - '%{_bindir}/MagickWand-config'
+#        - '%{_libdir}/pkgconfig/MagickCore*.pc'
+#        - '%{_libdir}/pkgconfig/ImageMagick*.pc'
+#        - '%{_libdir}/pkgconfig/MagickWand*.pc'
+
