@@ -31,7 +31,7 @@ cache:
     - cp -rv files ~/build/rpm/
     - mkdir -p output/$SFOS_VERSION
     - pushd ~/build/
-    - if [[ $NEWSPEC = "yes" ]]; then touch rpm/$YAMLNAME; else echo NEWSPEC is: $NEWSPEC; fi
+    - if [[ $NEWSPEC = "yes" ]]; then touch rpm/$YAMLNAME; else echo NEWSPEC is $NEWSPEC; fi
     - mb2 -t SailfishOS-$SFOS_VERSION-$TARGET prepare | tee -a prepare.log
     - popd
     - "if [[ -e  ~/build/rpm/ImageMagick.spec ]]; then mv ~/build/rpm/ImageMagick.spec ~/build/rpm/$SPECNAME; else echo WARNING: no new spec file exists; fi"
