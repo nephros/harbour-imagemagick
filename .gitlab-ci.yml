@@ -1,5 +1,18 @@
 stages:
   - build
+
+## defaults:
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  SFOS_VERSION: 3.3.0.14
+  NEWSPEC: "yes"
+  SPECNAME: harbour-imagemagick.spec
+  YAMLNAME: harbour-imagemagick.yaml
+
+cache:
+  paths:
+    - "/home/.zypp-cache"
+
 .build:
   stage: build
   allow_failure: true
@@ -12,13 +25,13 @@ stages:
   before_script:
     - export SRCVER="7.0.10-31"
     - export SRCURI="https://github.com/ImageMagick/ImageMagick"
-    - export SPECNAME="harbour-imagemagick.spec"
   script:
     - git clone --depth 1 --branch ${SRCVER} ${SRCURI} ~/build
     - cp -rv rpm ~/build/
     - cp -rv files ~/build/rpm/
     - mkdir -p output/$SFOS_VERSION
     - pushd ~/build/
+    - if [[ $NEWSPEC = "yes" ]]; then touch rpm/$YAMLNAME; fi
     - mb2 -t SailfishOS-$SFOS_VERSION-$TARGET prepare | tee -a prepare.log
     - popd
     - "if [[ -e  ~/build/rpm/ImageMagick.spec ]]; then mv ~/build/rpm/ImageMagick.spec ~/build/rpm/$SPECNAME; fi"
@@ -42,7 +55,6 @@ build-arm:
       - "rpm/*.spec"
       when: always
   variables:
-    SFOS_VERSION: "3.3.0.14"
     TARGET: "armv7hl"
 
 build-x86:
@@ -56,11 +68,5 @@ build-x86:
       - "rpm/*.spec"
       when: always
   variables:
-    SFOS_VERSION: "3.3.0.14"
     TARGET: "i486"
 
-#publish:
-#  stage: publish
-#  when: manual
-#  dependencies:
-#    - build
