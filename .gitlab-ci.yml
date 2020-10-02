@@ -44,6 +44,9 @@ variables:
     - cp -rv ~/build/rpm/* output/
     - pushd ~/build
     - mb2 -t SailfishOS-$SFOS_VERSION-$TARGET --specfile ./rpm/$SPECNAME build --enable-debug | tee -a build.log
+    - sudo zypper --non-interactive install sdk-harbour-rpmvalidator
+    - 'RPV=$(rpm --eval %{_libexecdir}/sdk-harbour-rpmvalidator/rpmvalidation.sh)'
+    - for f in $(find RPMS -type f -name *.rpm); do $RPV -d 0 -c $f 2>&1 | tee ${f##*/}_validation.log || exit 0; done
     - popd
     - cp -rv ~/build/*.log output/
     - cp -rv ~/build/RPMS/* output/$SFOS_VERSION
@@ -86,7 +89,7 @@ build-x86:
     when: always
     expire_in: 3 days
     paths:
-      - "output/*"
+      - "output/*.log"
   dependencies:
     - build-x86
   before_script:
@@ -100,6 +103,10 @@ build-x86:
     - sudo zypper --ignore-unknown --non-interactive install --allow-unsigned-rpm ImageMagick
     - if [[ ! -e output ]] ; then mkdir output; fi
     - ./tests/test-ci.sh 2>&1 | tee output/test.log
+    - sudo zypper --non-interactive install sdk-harbour-rpmvalidator
+    - 'RPV=$(rpm --eval %{_libexecdir}/sdk-harbour-rpmvalidator/rpmvalidation.sh)'
+    - if [[ ! -e output ]] ; then mkdir output; fi
+    - for f in $(find output/$SFOS_VERSION -type f -name *.rpm); do $RPV -d 0 -c $f 2>&1 || exit 0 | tee output/${f##*/}_validation.log; done
 
 test:
   extends: .test
@@ -107,43 +114,3 @@ test:
 #  environment:
 #    name: sfos-build/$CI_COMMIT_SHORT_SHA
 
-validate-old:
-  stage: build
-  allow_failure: true
-  artifacts:
-    when: always
-    expire_in: 3 days
-    paths:
-      - "output/*"
-  rules:
-    - if: '$CI_COMMIT_MESSAGE =~ "Release"'
-      when: always
-    - changes:
-      - "RPMS/armv7hl/*.rpm"
-      when: always
-    - when: manual
-  script:
-    - sudo zypper --non-interactive install sdk-harbour-rpmvalidator
-    - 'RPV=$(rpm --eval %{_libexecdir}/sdk-harbour-rpmvalidator/rpmvalidation.sh)'
-    - if [[ ! -e output ]] ; then mkdir output; fi
-    - for f in $(find $PWD/RPMS -type f -name *.rpm); do $RPV -d 0 -c $f 2>&1 || exit 0 | tee output/${f##*/}_validation.log; done
-
-validate-built:
-  stage: test
-  allow_failure: true
-  artifacts:
-    when: always
-    expire_in: 3 days
-    paths:
-      - "output/*_validation.log"
-  dependencies:
-    - build-arm
-  rules:
-    - if: '$CI_COMMIT_MESSAGE =~ "Release"'
-      when: never
-    - when: on_success
-  script:
-    - sudo zypper --non-interactive install sdk-harbour-rpmvalidator
-    - 'RPV=$(rpm --eval %{_libexecdir}/sdk-harbour-rpmvalidator/rpmvalidation.sh)'
-    - if [[ ! -e output ]] ; then mkdir output; fi
-    - for f in $(find output/$SFOS_VERSION ~/build -type f -name *.rpm); do $RPV -d 0 -c $f 2>&1 || exit 0 | tee output/${f##*/}_validation.log; done
