@@ -94,7 +94,7 @@ build-x86:
     - sudo zypper --non-interactive modifyrepo --gpgcheck-allow-unsigned-package myrepo
     - sudo zypper --non-interactive refresh
     - sudo zypper --ignore-unknown --non-interactive install --allow-unsigned-rpm ImageMagick
-    - mkdir output
+    - if [[ ! -e output ]] ; then mkdir output; fi
     - ./tests/test-ci.sh 2>&1 | tee output/test.log
 
 test:
@@ -122,5 +122,5 @@ validate:
   script:
     - sudo zypper --non-interactive install sdk-harbour-rpmvalidator
     - 'RPV=$(rpm --eval %{_libexecdir}/sdk-harbour-rpmvalidator/rpmvalidation.sh)'
-    - mkdir output
+    - if [[ ! -e output ]] ; then mkdir output; fi
     - for f in $(find $PWD/RPMS -type f -name *.rpm); do $RPV $f | tee output/${f}_validation.log; done
