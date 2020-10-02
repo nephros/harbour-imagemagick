@@ -114,12 +114,12 @@ validate:
   #dependencies:
   #  - build-arm
   rules:
-    when: manual
     - if: '$CI_COMMIT_MESSAGE =~ "Release"'
       when: always
     - changes:
       - "RPMS/armv7hl/*.rpm"
       when: always
+    - when: manual
   script:
     - sudo zypper --non-interactive install sdk-harbour-rpmvalidator
     - 'RPV=$(rpm --eval %{_libexecdir}/sdk-harbour-rpmvalidator/rpmvalidation.sh)'
