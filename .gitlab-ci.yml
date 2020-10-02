@@ -129,7 +129,7 @@ validate-old:
     - for f in $(find $PWD/RPMS -type f -name *.rpm); do $RPV -d 0 -c $f 2>&1 || exit 0 | tee output/${f##*/}_validation.log; done
 
 validate-built:
-  stage: build
+  stage: test
   allow_failure: true
   artifacts:
     when: always
