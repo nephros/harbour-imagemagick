@@ -89,13 +89,10 @@ build-x86:
   script:
     - ls -l
     - mkdir -p ~/myrepo
-    - for f in $(find $PWD/RPMS/$SFOS_VERSION/ $PWD/RPMS/ $PWD/output/$SFOS_VERSION/ -type f -name *.rpm); do cp ${f} ~/myrepo/; done
+    - for f in $(find $PWD/RPMS/$SFOS_VERSION/ $PWD/output/$SFOS_VERSION/ -type f -name *.rpm); do cp ${f} ~/myrepo/; done
     - sudo zypper --non-interactive addrepo  ~/myrepo myrepo
     - sudo zypper --non-interactive modifyrepo --gpgcheck-allow-unsigned-package myrepo
     - sudo zypper --non-interactive refresh
-#    - sudo zypper --non-interactive pa
-#    - zypper --non-interactive search --repo myrepo ImageMagick
-#   - zypper --non-interactive info ImageMagick
     - sudo zypper --ignore-unknown --non-interactive install --allow-unsigned-rpm ImageMagick
     - mkdir output
     - ./tests/test-ci.sh 2>&1 | tee output/test.log
@@ -107,17 +104,23 @@ test:
 #    name: sfos-build/$CI_COMMIT_SHORT_SHA
 
 validate:
-  stage: test
+  stage: build
   allow_failure: true
   artifacts:
     when: always
     expire_in: 3 days
     paths:
       - "output/*"
-  dependencies:
-    - build-arm
+  #dependencies:
+  #  - build-arm
+  rules:
+    - if: '$CI_COMMIT_MESSAGE =~ "Release"'
+      when: always
+    - changes:
+      - "RPMS/armv7hl/*.rpm"
+      when: always
   script:
     - sudo zypper --non-interactive install sdk-harbour-rpmvalidator
     - 'RPV=$(rpm --eval %{_libexecdir}/sdk-harbour-rpmvalidator/rpmvalidation.sh)'
     - mkdir output
-    - for f in $(find $PWD/RPMS/$SFOS_VERSION/ $PWD/RPMS/ $PWD/output/$SFOS_VERSION/ -type f -name *.rpm); do $RPV $f | tee output/${f}_validation.log; done
+    - for f in $(find $PWD/RPMS -type f -name *.rpm); do $RPV $f | tee output/${f}_validation.log; done
