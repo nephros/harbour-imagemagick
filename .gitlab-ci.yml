@@ -56,6 +56,8 @@ build-arm:
       when: never
     - changes:
       - ".gitlab-ci.yml"
+      when: manual
+    - changes:
       - "rpm/*.yaml"
       - "rpm/*.spec"
       when: always
@@ -69,6 +71,8 @@ build-x86:
       when: never
     - changes:
       - ".gitlab-ci.yml"
+      when: manual
+    - changes:
       - "rpm/*.yaml"
       - "rpm/*.spec"
       when: always
