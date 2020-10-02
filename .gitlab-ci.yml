@@ -124,4 +124,4 @@ validate:
     - sudo zypper --non-interactive install sdk-harbour-rpmvalidator
     - 'RPV=$(rpm --eval %{_libexecdir}/sdk-harbour-rpmvalidator/rpmvalidation.sh)'
     - if [[ ! -e output ]] ; then mkdir output; fi
-    - for f in $(find $PWD/RPMS -type f -name *.rpm); do $RPV $f | tee output/${f}_validation.log; done
+    - for f in $(find $PWD/RPMS -type f -name *.rpm); do $RPV -d 0 -c $f || exit 0 | tee output/${f}_validation.log; done
