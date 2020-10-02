@@ -114,6 +114,7 @@ validate:
   #dependencies:
   #  - build-arm
   rules:
+    when: manual
     - if: '$CI_COMMIT_MESSAGE =~ "Release"'
       when: always
     - changes:
