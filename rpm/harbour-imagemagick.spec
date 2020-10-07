@@ -7,11 +7,7 @@ Name:       ImageMagick
 
 # >> macros
 #%%define debug_build    0
-%define maj            7
 %define mfr_version    %{maj}.0.10
-%define mfr_revision   31
-%define source_version %{mfr_version}-%{mfr_revision}
-
 %define quantum_depth  16
 %define clibver        7
 %define libspec        -%{maj}_Q%{quantum_depth}HDRI
@@ -20,12 +16,9 @@ Recommends:    ffmpeg-tools
 # << macros
 
 Summary:    Viewer and Converter for Images
-Version:    7.0.10.31
-Release:    5
 Group:      Applications/Multimedia
 License:    ImageMagick
 URL:        https://imagemagick.org/
-Source0:    https://imagemagick.org/download/ImageMagick-%{mfr_version}-%{mfr_revision}.tar.xz
 Source100:  ImageMagick.yaml
 Requires:   libgcc
 Requires:   libgomp
