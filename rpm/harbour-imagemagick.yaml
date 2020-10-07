@@ -1,6 +1,6 @@
 Name:           ImageMagick
 Version:        %{mfr_version}.%{mfr_revision}
-Release:        4
+Release:        5
 Summary:        Viewer and Converter for Images
 Group:          Applications/Multimedia
 License:        ImageMagick
