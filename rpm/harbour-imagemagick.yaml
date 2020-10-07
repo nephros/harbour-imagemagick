@@ -1,12 +1,12 @@
 Name:           ImageMagick
-Version:        %{mfr_version}.%{mfr_revision}
-Release:        5
+Version:        7.0.10.33
+Release:        1
 Summary:        Viewer and Converter for Images
 Group:          Applications/Multimedia
 License:        ImageMagick
 URL:            https://imagemagick.org/
 Sources:
-  - "https://imagemagick.org/download/ImageMagick-%{mfr_version}-%{mfr_revision}.tar.xz"
+  - "https://imagemagick.org/download/ImageMagick-%{version}.tar.xz"
 
 PkgBR:
   - gcc
