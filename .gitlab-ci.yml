@@ -34,6 +34,7 @@ variables:
     - cp -rv rpm ~/build/
     - cp -rv files ~/build/rpm/
     - mkdir -p output/$SFOS_VERSION
+    - rm output/$SFOS_VERSION/*
     - pushd ~/build/
     - if [[ $NEWSPEC = "yes" ]]; then touch rpm/$YAMLNAME; else echo NEWSPEC is $NEWSPEC; fi
     - mb2 -t SailfishOS-$SFOS_VERSION-$TARGET prepare | tee -a prepare.log
@@ -43,9 +44,9 @@ variables:
     - cp -rv ~/build/rpm/* output/
     - pushd ~/build
     - mb2 -t SailfishOS-$SFOS_VERSION-$TARGET --specfile ./rpm/$SPECNAME build --enable-debug | tee -a build.log
-    - sudo zypper --non-interactive install sdk-harbour-rpmvalidator
-    - 'RPV=$(rpm --eval %{_libexecdir}/sdk-harbour-rpmvalidator/rpmvalidation.sh)'
-    - for f in $(find RPMS -type f -name *.rpm); do $RPV -d 0 -c $f 2>&1 | tee ${f##*/}_validation.log || exit 0; done
+#    - sudo zypper --non-interactive install sdk-harbour-rpmvalidator
+#    - 'RPV=$(rpm --eval %{_libexecdir}/sdk-harbour-rpmvalidator/rpmvalidation.sh)'
+#    - for f in $(find RPMS -type f -name *.rpm); do $RPV -d 0 -c $f 2>&1 | tee ${f##*/}_validation.log || exit 0; done
     - popd
     - cp -rv ~/build/*.log output/
     - cp -rv ~/build/RPMS/* output/$SFOS_VERSION
