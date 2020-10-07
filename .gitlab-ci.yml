@@ -16,7 +16,6 @@ stages:
 ## defaults:
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
-  SFOS_VERSION: 3.3.0.14
   NEWSPEC: "yes"
   SPECNAME: harbour-imagemagick.spec
   YAMLNAME: harbour-imagemagick.yaml
@@ -52,7 +51,7 @@ variables:
     - cp -rv ~/build/RPMS/* output/$SFOS_VERSION
     - rm -rf ~/build/*
 
-build-arm:
+build-arm-3.4:
   extends: .build
   rules:
     - if: '$CI_COMMIT_MESSAGE =~ "Release"'
@@ -65,6 +64,23 @@ build-arm:
       - "rpm/*.spec"
       when: always
   variables:
+    SFOS_VERSION: 3.4.0.22
+    TARGET: "armv7hl"
+
+build-arm-3.3:
+  extends: .build
+  rules:
+    - if: '$CI_COMMIT_MESSAGE =~ "Release"'
+      when: never
+    - changes:
+      - ".gitlab-ci.yml"
+      when: manual
+    - changes:
+      - "rpm/*.yaml"
+      - "rpm/*.spec"
+      when: always
+  variables:
+    SFOS_VERSION: 3.3.0.14
     TARGET: "armv7hl"
 
 build-x86:
@@ -80,6 +96,7 @@ build-x86:
       - "rpm/*.spec"
       when: always
   variables:
+    SFOS_VERSION: 3.3.0.14
     TARGET: "i486"
 
 .test:

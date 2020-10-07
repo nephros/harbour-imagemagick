@@ -21,6 +21,7 @@ Recommends:    ffmpeg-tools
 
 Summary:    Viewer and Converter for Images
 Version:    7.0.10.31
+Release:    5
 Group:      Applications/Multimedia
 License:    ImageMagick
 URL:        https://imagemagick.org/
