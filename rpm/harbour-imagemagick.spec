@@ -18,6 +18,8 @@ Recommends:    ffmpeg-tools
 Summary:    Viewer and Converter for Images
 Group:      Applications/Multimedia
 License:    ImageMagick
+Version:    7.0.10.31
+Release:    5
 URL:        https://imagemagick.org/
 Source100:  ImageMagick.yaml
 Requires:   libgcc
