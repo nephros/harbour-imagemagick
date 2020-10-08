@@ -61,6 +61,7 @@ variables:
 #    - for f in $(find RPMS -type f -name *.rpm); do $RPV -d 0 -c $f 2>&1 | tee $OUTDIR/${f##*/}_validation.log || exit 0; done
     - popd
     - cp -rv ~/build/RPMS/* $OUTDIR/$SFOS_VERSION
+    - set > $OUTDIR/environment.log
     - rm -rf ~/build
 
 build-arm-3.4:
@@ -89,14 +90,14 @@ build-x86-3.3:
     expire_in: 3 days
     paths:
       - "output/*.log"
-  needs: ["build-x86-3.3"]
-  dependencies:
-    - build-x86-3.3
+  needs:
+    - job: build-x86-3.3
+      artifacts: true
   before_script:
     - mkdir -p ~/myrepo
     - export OUTDIR=$PWD/output
     - if [[ ! -e $OUTDIR ]] ; then mkdir $OUTDIR; fi
-    - for f in $(find $PWD/RPMS/$SFOS_VERSION/ $PWD/$OUTDIR/$SFOS_VERSION/ -type f -name *.rpm); do cp ${f} ~/myrepo/; done
+    - for f in $(find $OUTDIR/ -type f -name *.rpm); do cp -v ${f} ~/myrepo/; done
     - sudo zypper --non-interactive addrepo  ~/myrepo myrepo
     - sudo zypper --non-interactive modifyrepo --gpgcheck-allow-unsigned-package myrepo
     - sudo zypper --non-interactive refresh
@@ -105,8 +106,7 @@ build-x86-3.3:
   script:
     - ./tests/test-ci.sh 2>&1 | tee $OUTDIR/test.log
     - 'RPV=$(rpm --eval %{_libexecdir}/sdk-harbour-rpmvalidator/rpmvalidation.sh)'
-    - if [[ ! -e $OUTDIR ]] ; then mkdir $OUTDIR; fi
-    - for f in $(find $OUTDIR/$SFOS_VERSION -type f -name *.rpm); do $RPV -d 0 -c $f 2>&1 || exit 0 | tee $OUTDIR/${f##*/}_validation.log; done
+    - for f in $(find $OUTDIR -type f -name *.rpm); do echo checking $f ; $RPV -d 0 -c $f 2>&1 > $OUTDIR/${f##*/}_validation.log || continue ; done
 
 test:
   extends: .test
