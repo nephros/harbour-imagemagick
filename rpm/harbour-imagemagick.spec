@@ -7,6 +7,7 @@ Name:       ImageMagick
 
 # >> macros
 #%%define debug_build    0
+%define maj            7
 %define mfr_version    %{maj}.0.10
 %define quantum_depth  16
 %define clibver        7

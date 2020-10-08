@@ -5,7 +5,7 @@ default:
   cache:
     paths:
       - "output/${SFOS_VERSION}"
-      - "build/images/"
+      - "~/build/images/"
       - "/home/.zypp-cache"
       - "~/myrepo"
 
@@ -27,30 +27,30 @@ variables:
     paths:
       - "output/*"
   before_script:
-    - export SRCVER="7.0.10-31"
     - export SRCURI="https://github.com/ImageMagick/ImageMagick"
   script:
+    # get version string from yaml, replace last . with -
+    - export SRCVER=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -E 's/(.*)\./\1-/')
     - git clone --depth 1 --branch ${SRCVER} ${SRCURI} ~/build
     - cp -rv rpm ~/build/
     - cp -rv files ~/build/rpm/
-    - mkdir -p output/$SFOS_VERSION
-    - rm output/$SFOS_VERSION/*
+    - export OUTDIR=$PWD/output
+    - 'if [[ -e $OUTDIR ]]; then rm -rf $OUTDIR; fi'
+    - mkdir -p $OUTDIR/$SFOS_VERSION
     - pushd ~/build/
     - if [[ $NEWSPEC = "yes" ]]; then touch rpm/$YAMLNAME; else echo NEWSPEC is $NEWSPEC; fi
-    - mb2 -t SailfishOS-$SFOS_VERSION-$TARGET prepare | tee -a prepare.log
+    - mb2 -t SailfishOS-$SFOS_VERSION-$TARGET prepare | tee -a $OUTDIR/prepare.log
     - popd
     - "if [[ -e  ~/build/rpm/ImageMagick.spec ]]; then mv ~/build/rpm/ImageMagick.spec ~/build/rpm/$SPECNAME; else echo WARNING: no new spec file exists; fi"
-    - cp -rv ~/build/*.log output/
-    - cp -rv ~/build/rpm/* output/
+    - cp -rv ~/build/rpm/* $OUTDIR/
     - pushd ~/build
-    - mb2 -t SailfishOS-$SFOS_VERSION-$TARGET --specfile ./rpm/$SPECNAME build --enable-debug | tee -a build.log
+    - mb2 -t SailfishOS-$SFOS_VERSION-$TARGET --specfile ./rpm/$SPECNAME build --enable-debug | tee -a $OUTDIR/build.log
 #    - sudo zypper --non-interactive install sdk-harbour-rpmvalidator
 #    - 'RPV=$(rpm --eval %{_libexecdir}/sdk-harbour-rpmvalidator/rpmvalidation.sh)'
-#    - for f in $(find RPMS -type f -name *.rpm); do $RPV -d 0 -c $f 2>&1 | tee ${f##*/}_validation.log || exit 0; done
+#    - for f in $(find RPMS -type f -name *.rpm); do $RPV -d 0 -c $f 2>&1 | tee $OUTDIR/${f##*/}_validation.log || exit 0; done
     - popd
-    - cp -rv ~/build/*.log output/
-    - cp -rv ~/build/RPMS/* output/$SFOS_VERSION
-    - rm -rf ~/build/*
+    - cp -rv ~/build/RPMS/* $OUTDIR/$SFOS_VERSION
+    - rm -rf ~/build
 
 build-arm-3.4:
   extends: .build
@@ -114,17 +114,18 @@ build-x86:
   script:
     - ls -l
     - mkdir -p ~/myrepo
-    - for f in $(find $PWD/RPMS/$SFOS_VERSION/ $PWD/output/$SFOS_VERSION/ -type f -name *.rpm); do cp ${f} ~/myrepo/; done
+    - export OUTDIR=$PWD/output
+    - if [[ ! -e $OUTDIR ]] ; then mkdir $OUTDIR; fi
+    - for f in $(find $PWD/RPMS/$SFOS_VERSION/ $PWD/$OUTDIR/$SFOS_VERSION/ -type f -name *.rpm); do cp ${f} ~/myrepo/; done
     - sudo zypper --non-interactive addrepo  ~/myrepo myrepo
     - sudo zypper --non-interactive modifyrepo --gpgcheck-allow-unsigned-package myrepo
     - sudo zypper --non-interactive refresh
     - sudo zypper --ignore-unknown --non-interactive install --allow-unsigned-rpm ImageMagick
-    - if [[ ! -e output ]] ; then mkdir output; fi
-    - ./tests/test-ci.sh 2>&1 | tee output/test.log
+    - ./tests/test-ci.sh 2>&1 | tee $OUTDIR/test.log
     - sudo zypper --non-interactive install sdk-harbour-rpmvalidator
     - 'RPV=$(rpm --eval %{_libexecdir}/sdk-harbour-rpmvalidator/rpmvalidation.sh)'
-    - if [[ ! -e output ]] ; then mkdir output; fi
-    - for f in $(find output/$SFOS_VERSION -type f -name *.rpm); do $RPV -d 0 -c $f 2>&1 || exit 0 | tee output/${f##*/}_validation.log; done
+    - if [[ ! -e $OUTDIR ]] ; then mkdir $OUTDIR; fi
+    - for f in $(find $OUTDIR/$SFOS_VERSION -type f -name *.rpm); do $RPV -d 0 -c $f 2>&1 || exit 0 | tee $OUTDIR/${f##*/}_validation.log; done
 
 test:
   extends: .test
