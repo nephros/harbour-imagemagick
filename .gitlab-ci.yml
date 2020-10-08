@@ -4,9 +4,10 @@ default:
     - docker
   cache:
     paths:
-      - "~/build/images/"
       - "/home/.zypp-cache"
-      - "~/myrepo"
+      - "$HOME/myrepo"
+      - "$HOME/build/images/"
+      - "$HOME/test-data"
 
 stages:
   - build
