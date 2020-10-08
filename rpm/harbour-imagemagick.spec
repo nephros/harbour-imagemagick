@@ -10,11 +10,14 @@
 # delegation of video things:
 Recommends:    ffmpeg-tools
 # << macros
+
 # >> setup
 %setup -q -n ImageMagick-%{source_version}
 # << setup
+
 # >> build pre
 # << build pre
+
 # >> build post
 # Do *NOT* use %%{?_smp_mflags}, this causes PerlMagick to be silently misbuild
 # make
@@ -22,13 +25,17 @@ Recommends:    ffmpeg-tools
 # lets try this from the macros
 %{make_build}
 # << build post
+
 # >> install pre
 make install DESTDIR=$RPM_BUILD_ROOT
 # << install pre
+
 # >> install post
 # << install post
+
 # >> files
 # << files
+
 # >> files devel
 %doc ChangeLog NEWS.txt
 %{_libdir}/libMagickCore*.so
