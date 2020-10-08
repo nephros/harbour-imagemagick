@@ -11,10 +11,6 @@
 Recommends:    ffmpeg-tools
 # << macros
 
-# >> setup
-%setup -q -n ImageMagick-%{source_version}
-# << setup
-
 # >> build pre
 # << build pre
 
