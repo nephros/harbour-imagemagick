@@ -4,7 +4,6 @@ default:
     - docker
   cache:
     paths:
-      - "output/${SFOS_VERSION}"
       - "~/build/images/"
       - "/home/.zypp-cache"
       - "~/myrepo"
@@ -16,6 +15,7 @@ stages:
 ## defaults:
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
+  GIT_DEPTH: 1
   NEWSPEC: "yes"
   SPECNAME: harbour-imagemagick.spec
   YAMLNAME: harbour-imagemagick.yaml
@@ -23,6 +23,16 @@ variables:
 .build:
   stage: build
   allow_failure: false
+  rules:
+    - if: '$CI_COMMIT_MESSAGE =~ "Release"'
+      when: never
+    - changes:
+      - ".gitlab-ci.yml"
+      when: manual
+    - changes:
+      - "rpm/*.yaml"
+      - "rpm/*.spec"
+      when: always
   artifacts:
     when: always
     paths:
@@ -55,48 +65,18 @@ variables:
 
 build-arm-3.4:
   extends: .build
-  rules:
-    - if: '$CI_COMMIT_MESSAGE =~ "Release"'
-      when: never
-    - changes:
-      - ".gitlab-ci.yml"
-      when: manual
-    - changes:
-      - "rpm/*.yaml"
-      - "rpm/*.spec"
-      when: always
   variables:
     SFOS_VERSION: 3.4.0.22
     TARGET: "armv7hl"
 
 build-arm-3.3:
   extends: .build
-  rules:
-    - if: '$CI_COMMIT_MESSAGE =~ "Release"'
-      when: never
-    - changes:
-      - ".gitlab-ci.yml"
-      when: manual
-    - changes:
-      - "rpm/*.yaml"
-      - "rpm/*.spec"
-      when: always
   variables:
     SFOS_VERSION: 3.3.0.14
     TARGET: "armv7hl"
 
-build-x86:
+build-x86-3.3:
   extends: .build
-  rules:
-    - if: '$CI_COMMIT_MESSAGE =~ "Release"'
-      when: never
-    - changes:
-      - ".gitlab-ci.yml"
-      when: manual
-    - changes:
-      - "rpm/*.yaml"
-      - "rpm/*.spec"
-      when: always
   variables:
     SFOS_VERSION: 3.3.0.14
     TARGET: "i486"
@@ -109,11 +89,10 @@ build-x86:
     expire_in: 3 days
     paths:
       - "output/*.log"
+  needs: ["build-x86-3.3"]
   dependencies:
-    - build-x86
+    - build-x86-3.3
   before_script:
-  script:
-    - ls -l
     - mkdir -p ~/myrepo
     - export OUTDIR=$PWD/output
     - if [[ ! -e $OUTDIR ]] ; then mkdir $OUTDIR; fi
@@ -122,14 +101,17 @@ build-x86:
     - sudo zypper --non-interactive modifyrepo --gpgcheck-allow-unsigned-package myrepo
     - sudo zypper --non-interactive refresh
     - sudo zypper --ignore-unknown --non-interactive install --allow-unsigned-rpm ImageMagick
-    - ./tests/test-ci.sh 2>&1 | tee $OUTDIR/test.log
     - sudo zypper --non-interactive install sdk-harbour-rpmvalidator
+  script:
+    - ./tests/test-ci.sh 2>&1 | tee $OUTDIR/test.log
     - 'RPV=$(rpm --eval %{_libexecdir}/sdk-harbour-rpmvalidator/rpmvalidation.sh)'
     - if [[ ! -e $OUTDIR ]] ; then mkdir $OUTDIR; fi
     - for f in $(find $OUTDIR/$SFOS_VERSION -type f -name *.rpm); do $RPV -d 0 -c $f 2>&1 || exit 0 | tee $OUTDIR/${f##*/}_validation.log; done
 
 test:
   extends: .test
+  variables:
+    SFOS_VERSION: 3.3.0.14
 #  when: manual
 #  environment:
 #    name: sfos-build/$CI_COMMIT_SHORT_SHA
