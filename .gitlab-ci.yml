@@ -24,6 +24,7 @@ variables:
   stage: build
   allow_failure: false
   artifacts:
+    when: always
     paths:
       - "output/*"
   before_script:
