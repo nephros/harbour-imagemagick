@@ -4,6 +4,9 @@ git clone --quiet --depth 1 ${SRCURI} ~/test-data || exit 100
 tmp=$(mktemp -d -t imtest_XXXXXX)
 revfmt=png
 cvt=convert
+echo =================================
+echo testing $(rpm -q ImageMagick)
+echo =================================
 for inp in ~/test-data/images/*
 do
 	[[ -f $inp ]] || continue
