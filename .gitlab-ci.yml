@@ -30,7 +30,7 @@ variables:
     - export SRCURI="https://github.com/ImageMagick/ImageMagick"
   script:
     # get version string from yaml, replace last . with -
-    - export SRCVER=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -E 's/(.*)\./\1-/')
+    - export SRCVER=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
     - git clone --depth 1 --branch ${SRCVER} ${SRCURI} ~/build
     - cp -rv rpm ~/build/
     - cp -rv files ~/build/rpm/
