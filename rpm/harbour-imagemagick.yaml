@@ -6,7 +6,7 @@ Group:          Applications/Multimedia
 License:        ImageMagick
 URL:            https://imagemagick.org/
 Sources:
-  - "https://imagemagick.org/download/ImageMagick-%{version}.tar.xz"
+  - "https://imagemagick.org/download/ImageMagick-%{mfr_version}-%{mfr_revision}.tar.xz"
 
 PkgBR:
   - gcc
