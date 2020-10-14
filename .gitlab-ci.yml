@@ -37,7 +37,10 @@ variables:
   artifacts:
     when: always
     paths:
-      - "output/*"
+      - "output/$SFOS_VERSION"
+      - "output/*.log"
+      - "output/*.yaml"
+      - "output/*.spec"
   before_script:
     - export SRCURI="https://github.com/ImageMagick/ImageMagick"
   script:
