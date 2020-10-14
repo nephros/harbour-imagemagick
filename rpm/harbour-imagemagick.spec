@@ -6,21 +6,20 @@
 Name:       ImageMagick
 
 # >> macros
-#%%define debug_build    0
-%define maj            7
-%define mfr_version    %{maj}.0.10
-%define mfr_revision   33
-%define quantum_depth  16
-%define clibver        7
-%define libspec        -%{maj}_Q%{quantum_depth}HDRI
-%define source_version %{mfr_version}-%{mfr_revision}
 # delegation of video things:
 Recommends:    ffmpeg-tools
 # << macros
+%define mfr_revision 34
+%define clibver 7
+%define source_version %{mfr_version}-%{mfr_revision}
+%define mfr_version %{maj}.0.10
+%define quantum_depth 16
+%define maj 7
+%define libspec -%{maj}_Q%{quantum_depth}HDRI
 
 Summary:    Viewer and Converter for Images
-Version:    7.0.10.33
-Release:    1
+Version:    7.0.10.34
+Release:    1%{?dist}
 Group:      Applications/Multimedia
 License:    ImageMagick
 URL:        https://imagemagick.org/
@@ -163,5 +162,4 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/MagickCore*.pc
 %{_libdir}/pkgconfig/ImageMagick*.pc
 %{_libdir}/pkgconfig/MagickWand*.pc
-
 # << files devel

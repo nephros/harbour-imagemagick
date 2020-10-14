@@ -16,7 +16,7 @@ stages:
 ## defaults:
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
-  GIT_DEPTH: 1
+  GIT_DEPTH: "1"
   NEWSPEC: "yes"
   SPECNAME: harbour-imagemagick.spec
   YAMLNAME: harbour-imagemagick.yaml
@@ -28,9 +28,6 @@ variables:
     - if: '$CI_COMMIT_MESSAGE =~ "Release"'
       when: never
     - changes:
-      - ".gitlab-ci.yml"
-      when: manual
-    - changes:
       - "rpm/*.yaml"
       - "rpm/*.spec"
       when: always
@@ -39,7 +36,6 @@ variables:
     paths:
       - "output/$SFOS_VERSION"
       - "output/*.log"
-      - "output/*.yaml"
       - "output/*.spec"
   before_script:
     - export SRCURI="https://github.com/ImageMagick/ImageMagick"
@@ -49,20 +45,14 @@ variables:
     - git clone --depth 1 --branch ${SRCVER} ${SRCURI} ~/build
     - cp -rv rpm ~/build/
     - cp -rv files ~/build/rpm/
-    - export OUTDIR=$PWD/output
+    - export OUTDIR=$CI_PROJECT_DIR/output
     - 'if [[ -e $OUTDIR ]]; then rm -rf $OUTDIR; fi'
     - mkdir -p $OUTDIR/$SFOS_VERSION
     - pushd ~/build/
     - if [[ $NEWSPEC = "yes" ]]; then specify --non-interactive --skip-scm --not-download -o rpm/$SPECNAME rpm/$YAMLNAME; else echo NEWSPEC is $NEWSPEC; fi
     - mb2 -t SailfishOS-$SFOS_VERSION-$TARGET prepare | tee -a $OUTDIR/prepare.log
-    - popd
-    #- "if [[ -e  ~/build/rpm/ImageMagick.spec ]]; then mv ~/build/rpm/ImageMagick.spec ~/build/rpm/$SPECNAME; else echo WARNING: no new spec file exists; fi"
-    - cp -rv ~/build/rpm/* $OUTDIR/
-    - pushd ~/build
+    - cp -rv ~/build/rpm/$SPECNAME $OUTDIR/
     - mb2 -t SailfishOS-$SFOS_VERSION-$TARGET build --enable-debug | tee -a $OUTDIR/build.log
-#    - sudo zypper --non-interactive install sdk-harbour-rpmvalidator
-#    - 'RPV=$(rpm --eval %{_libexecdir}/sdk-harbour-rpmvalidator/rpmvalidation.sh)'
-#    - for f in $(find RPMS -type f -name *.rpm); do $RPV -d 0 -c $f 2>&1 | tee $OUTDIR/${f##*/}_validation.log || exit 0; done
     - popd
     - cp -rv ~/build/RPMS/* $OUTDIR/$SFOS_VERSION
     - set > $OUTDIR/environment.log
@@ -101,7 +91,7 @@ build-x86-3.3:
       artifacts: true
   before_script:
     - mkdir -p ~/myrepo
-    - export OUTDIR=$PWD/output
+    - export OUTDIR=$CI_PROJECT_DIR/output
     - if [[ ! -e $OUTDIR ]] ; then mkdir $OUTDIR; fi
     - for f in $(find $OUTDIR/ -type f -name *.rpm); do cp -v ${f} ~/myrepo/; done
     - sudo zypper --non-interactive addrepo  ~/myrepo myrepo
@@ -118,7 +108,65 @@ test:
   extends: .test
   variables:
     SFOS_VERSION: 3.3.0.14
-#  when: manual
-#  environment:
-#    name: sfos-build/$CI_COMMIT_SHORT_SHA
+  when: manual
+
+#####
+# LOCAL BUILDER
+#####
+
+.test-local:
+  image: "coderus/sailfishos-platform-sdk:${SFOS_VERSION}"
+  tags:
+    - docker
+  cache:
+    tag: $CI_JOB_NAME
+    paths:
+      - "/cache/zypp"
+      - "$CI_PROJECT_DIR/myrepo"
+  variables:
+    SFOS_VERSION: 3.3.0.14
+  script:
+    - export ZYPP_CONF=$CI_PROJECT_DIR/.zypp.conf
+    - sudo mkdir -p /cache/zypp
+    - export OUTDIR=$CI_PROJECT_DIR/output
+    ## test
+    - mkdir -p $CI_PROJECT_DIR/myrepo
+    - for f in $(find RPMS/$SFOS_VERSION -type f -name *.rpm); do cp -v ${f} $CI_PROJECT_DIR/myrepo/; done
+    - sudo zypper --non-interactive addrepo  $CI_PROJECT_DIR/myrepo myrepo
+    - sudo zypper --non-interactive modifyrepo --gpgcheck-allow-unsigned-package myrepo
+    - sudo zypper --non-interactive refresh
+    - sudo zypper --ignore-unknown --non-interactive install --allow-unsigned-rpm ImageMagick
+    - ./tests/test-ci.sh 2>&1 | tee $OUTDIR/test.log
+
+.build-local:
+  image: "coderus/sailfishos-platform-sdk:$SFOS_VERSION"
+  timeout: 1h 30m
+  tags:
+    - docker
+    - $SFOS_VERSION
+  cache:
+    tag: ${CI_PROJECT_NAME}_${CI_JOB_NAME}
+    paths:
+      - "/cache/zypp"
+      - "$CI_PROJECT_DIR/myrepo"
+  script:
+    - export SRCURI="https://github.com/ImageMagick/ImageMagick"
+    - export ZYPP_CONF=$CI_PROJECT_DIR/.zypp.conf
+    - sudo mkdir -p /cache/zypp
+    # get version string from yaml, replace last . with -
+    - export SRCVER=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
+    - export OUTDIR=$CI_PROJECT_DIR/output
+    - git clone --depth 1 --branch ${SRCVER} ${SRCURI} ~/build
+    - specify --non-interactive --skip-scm --not-download -o rpm/$SPECNAME rpm/$YAMLNAME
+    - cp -rv rpm ~/build/
+    - cp -rv files ~/build/rpm/
+    - mkdir -p $OUTDIR/$SFOS_VERSION
+    - pushd ~/build/
+    - mb2 -t SailfishOS-$SFOS_VERSION-$TARGET prepare | tee -a $OUTDIR/prepare.log
+    - cp -rv ~/build/rpm/$SPECNAME $OUTDIR/
+    - mb2 -t SailfishOS-$SFOS_VERSION-$TARGET build --enable-debug | tee -a $OUTDIR/build.log
+    - popd
+    - cp -rv ~/build/RPMS/* $OUTDIR/$SFOS_VERSION
+    - set > $OUTDIR/environment.log
+    - rm -rf ~/build
 
