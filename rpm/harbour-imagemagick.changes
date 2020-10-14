@@ -1,3 +1,5 @@
+* Tue Oct 13 10:44:49 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.34
+- version bump
 * Thu Oct  8 16:06:42 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.31-3
 - rebuild with split debugging --> smaller package, this time for real
 * Thu Oct  8 08:50:49 CEST 2020 Nephros <sailfish@nephros.org> 7.0.10.33
