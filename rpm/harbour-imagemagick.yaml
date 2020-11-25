@@ -15,7 +15,7 @@ Macros:
   - 'mfr_version;%{maj}.0.10'
   - 'mfr_revision;43'
   - 'quantum_depth;16'
-  - 'clibver;7'
+  - 'clibver;8'
   - 'libspec;-%{maj}_Q%{quantum_depth}HDRI'
   - 'source_version;%{mfr_version}-%{mfr_revision}'
 
