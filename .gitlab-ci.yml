@@ -60,12 +60,12 @@ variables:
   after_script:
     - rm -rf ~/build
 
-build-arm
+build-arm:
   extends: .build
   variables:
     TARGET: "armv7hl"
 
-build-x86
+build-x86:
   extends: .build
   variables:
     TARGET: "i486"
