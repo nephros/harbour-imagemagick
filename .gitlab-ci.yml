@@ -69,15 +69,12 @@ build-arm:
   before_script:
     - export COMMIT=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
 
-build-arm:
-  extends: .build
-  variables:
-    TARGET: "armv7hl"
-
 build-x86:
-  extends: .build
+  extends: .build-bin
   variables:
     TARGET: "i486"
+  before_script:
+    - export COMMIT=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
 
 .test:
   stage: test
