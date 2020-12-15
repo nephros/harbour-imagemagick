@@ -59,7 +59,8 @@ variables:
 #    - rm -rf ~/build
 
 include:
-  - 'https://gitlab.com/nephros/ci-templates/-/raw/master/sfos/sfos-build-git-remote.yml'
+  - project: 'nephros/ci-templates'
+    file: '/sfos/sfos-build-git-remote.yml'
 
 build-arm:
   stage: build
