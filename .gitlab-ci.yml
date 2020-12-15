@@ -69,22 +69,14 @@ build-arm:
   before_script:
     - export COMMIT=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
 
-build-arm-3.4:
+build-arm:
   extends: .build
   variables:
-    SFOS_VERSION: 3.4.0.22
     TARGET: "armv7hl"
 
-build-arm-3.3:
+build-x86:
   extends: .build
   variables:
-    SFOS_VERSION: 3.3.0.14
-    TARGET: "armv7hl"
-
-build-x86-3.3:
-  extends: .build
-  variables:
-    SFOS_VERSION: 3.3.0.14
     TARGET: "i486"
 
 .test:
@@ -97,7 +89,7 @@ build-x86-3.3:
       - "output/test.log"
       - "output/*_validation.log"
   needs:
-    - job: build-x86-3.3
+    - job: build-x86
       artifacts: true
   before_script:
     - mkdir -p ~/myrepo
@@ -134,7 +126,7 @@ test:
       - "/cache/zypp"
       - "$CI_PROJECT_DIR/myrepo"
   variables:
-    SFOS_VERSION: 3.3.0.14
+    SFOS_VERSION: 3.4.0.22
   script:
     - export ZYPP_CONF=$CI_PROJECT_DIR/.zypp.conf
     - sudo mkdir -p /cache/zypp
