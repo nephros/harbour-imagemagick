@@ -70,6 +70,7 @@ build-arm:
     - export COMMIT=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
 
 build-x86:
+  stage: build
   extends: .build-bin
   variables:
     TARGET: "i486"
