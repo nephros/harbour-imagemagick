@@ -126,6 +126,11 @@ test:
     # These are needed if your app doesn't exist yet on OpenRepos
     #OPENREPOS_UPLOAD_RPM_PLATFORM: SailfishOS    # or "Harmattan", etc...
     #OPENREPOS_UPLOAD_RPM_CATEGORY: Applications  # or "Libraries", etc...
+  needs:
+    #- auto-rebase
+    - build-arm
+    - build-x86
+    - test
   dependencies:
     #- auto-rebase
     - build-arm
