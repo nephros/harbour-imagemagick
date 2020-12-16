@@ -62,6 +62,7 @@ variables:
 include:
   - project: 'nephros/ci-templates'
     file: '/sfos/sfos-build-git-remote.yml'
+  - https://gitlab.com/nobodyinperson/python3-openrepos-webclient/-/raw/v1.1.1/openrepos-upload-rpm.gitlab-ci.yml
 
 build-arm:
   stage: build
@@ -114,8 +115,6 @@ test:
 # deploy
 ###
 #
-include:
-  - https://gitlab.com/nobodyinperson/python3-openrepos-webclient/-/raw/v1.1.1/openrepos-upload-rpm.gitlab-ci.yml
 
 .openrepos-upload-rpm-base:
   extends: .openrepos-upload-rpm
