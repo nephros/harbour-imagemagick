@@ -4,7 +4,7 @@ stages:
   - deploy
 
 default:
-  image: "coderus/sailfishos-platform-sdk:${SFOS_VERSION}"
+  image: "coderus/sailfishos-platform-sdk-${TARGET}:${SFOS_VERSION}"
   tags:
     - docker
   cache:
