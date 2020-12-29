@@ -17,7 +17,7 @@ default:
 ## defaults:
 variables:
   SRCREPO: "https://github.com/ImageMagick/ImageMagick"
-  USE_COMMIT: "yes"
+  USE_COMMIT: "no"
   SPECNAME: harbour-imagemagick.spec
   YAMLNAME: harbour-imagemagick.yaml
 
@@ -71,6 +71,7 @@ build-arm:
     TARGET: "armv7hl"
   before_script:
     - export COMMIT=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
+    - export SRCTAG=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
 
 build-arm64:
   stage: build
@@ -97,9 +98,6 @@ build-x86:
     paths:
       - "output/test.log"
       - "output/*_validation.log"
-  needs:
-    - job: build-x86
-      artifacts: true
   before_script:
     - mkdir -p ~/myrepo
     - export OUTDIR=$CI_PROJECT_DIR/output
@@ -118,6 +116,25 @@ build-x86:
 test:
   extends: .test
   when: manual
+  needs:
+    - job: build-x86
+      artifacts: true
+
+testdummy-arm:
+  extends: .test
+  when: never
+  needs:
+    - job: build-arm
+  script:
+    - /bin/false
+
+testdummy-arm64:
+  extends: .test
+  when: never
+  needs:
+    - job: build-arm64
+  script:
+    - /bin/false
 
 ###
 # deploy
