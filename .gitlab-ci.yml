@@ -72,6 +72,14 @@ build-arm:
   before_script:
     - export COMMIT=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
 
+build-arm64:
+  stage: build
+  extends: .build-bin
+  variables:
+    TARGET: "aarch64"
+  before_script:
+    - export COMMIT=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
+
 build-x86:
   stage: build
   extends: .build-bin
@@ -186,7 +194,7 @@ openrepos-upload-rpm-x86:
       - "/cache/zypp"
       - "$CI_PROJECT_DIR/myrepo"
   variables:
-    SFOS_VERSION: 3.4.0.22
+    SFOS_VERSION: 3.4.0.24
   script:
     - export ZYPP_CONF=$CI_PROJECT_DIR/.zypp.conf
     - sudo mkdir -p /cache/zypp
