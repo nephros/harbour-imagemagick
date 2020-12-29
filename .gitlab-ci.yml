@@ -122,7 +122,7 @@ test:
 
 testdummy-arm:
   extends: .test
-  when: never
+  when: manual
   needs:
     - job: build-arm
   script:
@@ -130,7 +130,7 @@ testdummy-arm:
 
 testdummy-arm64:
   extends: .test
-  when: never
+  when: manual
   needs:
     - job: build-arm64
   script:
