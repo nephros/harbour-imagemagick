@@ -70,7 +70,6 @@ build-arm:
   variables:
     TARGET: "armv7hl"
   before_script:
-    - export COMMIT=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
     - export SRCTAG=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
 
 build-arm64:
@@ -79,7 +78,7 @@ build-arm64:
   variables:
     TARGET: "aarch64"
   before_script:
-    - export COMMIT=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
+    - export SRCTAG=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
 
 build-x86:
   stage: build
@@ -87,7 +86,7 @@ build-x86:
   variables:
     TARGET: "i486"
   before_script:
-    - export COMMIT=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
+    - export SRCTAG=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
 
 .test:
   stage: test
@@ -126,7 +125,7 @@ testdummy-arm:
   needs:
     - job: build-arm
   script:
-    - /bin/false
+    - "/bin/false"
 
 testdummy-arm64:
   extends: .test
@@ -134,7 +133,7 @@ testdummy-arm64:
   needs:
     - job: build-arm64
   script:
-    - /bin/false
+    - "/bin/false"
 
 ###
 # deploy
