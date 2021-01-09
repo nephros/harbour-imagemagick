@@ -1,7 +1,7 @@
 Name:           ImageMagick
 ### DO NOT FORGET TO BUMP mfr_version below !!!
-### Also, the builds script needs this to no be a macro
-Version:        7.0.10.53
+### Also, the builds script needs this to not be a macro
+Version:        7.0.10.56
 Release:        1%{?dist}
 Summary:        Viewer and Converter for Images
 Group:          Applications/Multimedia
@@ -11,7 +11,7 @@ Sources:
   - "https://imagemagick.org/download/ImageMagick-%{mfr_version}-%{mfr_revision}.tar.xz"
 Macros:
   #- 'debug_build;0'
-  - 'mfr_revision;53'
+  - 'mfr_revision;56'
   - 'maj;7'
   - 'mfr_version;%{maj}.0.10'
   - 'quantum_depth;16'
@@ -41,7 +41,13 @@ Requires:
   - xz-libs
 
 Description: |
-    ImageMagick is a software suite to create, edit, compose, or convert bitmap images.
+    ImageMagick®  is a software suite to create, edit, compose, or convert
+    bitmap images. 
+    It can read and write images in a variety of formats (over 200) including
+    PNG, JPEG, GIF, HEIC, TIFF, DPX, EXR, WebP, Postscript, PDF, and SVG.
+    ImageMagick can resize, flip, mirror, rotate, distort, shear and transform
+    images, adjust image colors, apply various special effects, or draw text,
+    lines, polygons, ellipses and Bézier curves.
 
 ConfigOptions:
   - --quiet

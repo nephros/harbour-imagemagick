@@ -7,7 +7,7 @@ Name:       ImageMagick
 
 # >> macros
 # << macros
-%define mfr_revision 53
+%define mfr_revision 56
 %define maj 7
 %define mfr_version %{maj}.0.10
 %define quantum_depth 16
@@ -16,7 +16,7 @@ Name:       ImageMagick
 %define source_version %{mfr_version}-%{mfr_revision}
 
 Summary:    Viewer and Converter for Images
-Version:    7.0.10.53
+Version:    7.0.10.56
 Release:    1%{?dist}
 Group:      Applications/Multimedia
 License:    ImageMagick
@@ -44,7 +44,13 @@ BuildRequires:  libtool-ltdl-devel
 BuildRequires:  libwebp-devel
 
 %description
-ImageMagick is a software suite to create, edit, compose, or convert bitmap images.
+ImageMagick®  is a software suite to create, edit, compose, or convert
+bitmap images. 
+It can read and write images in a variety of formats (over 200) including
+PNG, JPEG, GIF, HEIC, TIFF, DPX, EXR, WebP, Postscript, PDF, and SVG.
+ImageMagick can resize, flip, mirror, rotate, distort, shear and transform
+images, adjust image colors, apply various special effects, or draw text,
+lines, polygons, ellipses and Bézier curves.
 
 
 %package devel

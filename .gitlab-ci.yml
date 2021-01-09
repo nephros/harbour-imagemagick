@@ -62,7 +62,9 @@ variables:
 include:
   - project: 'nephros/ci-templates'
     file: '/sfos/sfos-build-git-remote.yml'
-  - https://gitlab.com/nobodyinperson/python3-openrepos-webclient/-/raw/v1.1.1/openrepos-upload-rpm.gitlab-ci.yml
+  - project: 'nobodyinperson/python3-openrepos-webclient'
+    ref: v1.1.1
+    file: 'openrepos-upload-rpm.gitlab-ci.yml'
 
 build-arm:
   stage: build
@@ -115,6 +117,8 @@ build-x86:
 test:
   extends: .test
   when: manual
+  variables:
+    TARGET: i486
   needs:
     - job: build-x86
       artifacts: true
@@ -124,16 +128,20 @@ testdummy-arm:
   when: manual
   needs:
     - job: build-arm
+  before_script:
+    - "/bin/true"
   script:
-    - "/bin/false"
+    - "/bin/true"
 
 testdummy-arm64:
   extends: .test
   when: manual
   needs:
     - job: build-arm64
+  before_script:
+    - "/bin/true"
   script:
-    - "/bin/false"
+    - "/bin/true"
 
 ###
 # deploy
@@ -153,11 +161,13 @@ testdummy-arm64:
   needs:
     #- auto-rebase
     - build-arm
+    - build-arm64
     - build-x86
     - test
   dependencies:
     #- auto-rebase
     - build-arm
+    - build-arm64
     - build-x86
     - test
   rules:
@@ -189,6 +199,12 @@ openrepos-upload-rpm-arm:
   stage: deploy
   variables:
     TARGET: armv7hl
+
+openrepos-upload-rpm-arm64:
+  extends: .openrepos-upload-rpm-base
+  stage: deploy
+  variables:
+    TARGET: aarch64
 
 openrepos-upload-rpm-x86:
   extends: .openrepos-upload-rpm-base
