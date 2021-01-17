@@ -82,13 +82,13 @@ build-arm64:
   before_script:
     - export SRCTAG=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
 
-build-amd64:
-  stage: build
-  extends: .build-bin
-  variables:
-    TARGET: "amd64"
-  before_script:
-    - export SRCTAG=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
+      #build-amd64:
+      #  stage: build
+      #  extends: .build-bin
+      #  variables:
+      #    TARGET: "amd64"
+      #  before_script:
+      #    - export SRCTAG=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
 
 build-x86:
   stage: build
