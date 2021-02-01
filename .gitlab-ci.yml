@@ -124,32 +124,29 @@ build-x86:
 
 test:
   extends: .test
-  when: manual
+  #when: manual
   variables:
     TARGET: i486
   needs:
     - job: build-x86
       artifacts: true
 
-testdummy-arm:
-  extends: .test
+.testdummy:
+  stage: test
+  image: "busybox:latest"
   when: manual
-  needs:
-    - job: build-arm
-  before_script:
-    - "/bin/true"
   script:
     - "/bin/true"
 
+testdummy-arm:
+  extends: .testdummy
+  needs:
+    - job: build-arm
+
 testdummy-arm64:
-  extends: .test
-  when: manual
+  extends: .testdummy
   needs:
     - job: build-arm64
-  before_script:
-    - "/bin/true"
-  script:
-    - "/bin/true"
 
 ###
 # deploy
