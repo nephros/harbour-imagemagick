@@ -17,47 +17,10 @@ default:
 ## defaults:
 variables:
   SRCREPO: "https://github.com/ImageMagick/ImageMagick"
-  USE_COMMIT: "no"
+  USE_COMMIT: "yes" # fix for untagged 7.0.11-1
+  SRCTAG: "9f1a8f34c346623372635f9abf00ac6fc24d7cc1" # fix for untagged 7.0.11-1
   SPECNAME: harbour-imagemagick.spec
   YAMLNAME: harbour-imagemagick.yaml
-
-#.build:
-#  stage: build
-#  allow_failure: false
-#  rules:
-#    - if: '$CI_COMMIT_MESSAGE =~ "Release"'
-#      when: never
-#    - changes:
-#      - "rpm/*.yaml"
-#      - "rpm/*.spec"
-#      when: always
-#  artifacts:
-#    when: always
-#    paths:
-#      - "output/$SFOS_VERSION"
-#      - "output/*.log"
-#      - "output/*.spec"
-#  before_script:
-#    - export SRCURI="https://github.com/ImageMagick/ImageMagick"
-#  script:
-#    # get version string from yaml, replace last . with -
-#    - export SRCVER=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
-#    - git clone --depth 1 --branch ${SRCVER} ${SRCURI} ~/build
-#    - cp -rv rpm ~/build/
-#    - cp -rv files ~/build/rpm/
-#    - export OUTDIR=$CI_PROJECT_DIR/output
-#    - 'if [[ -e $OUTDIR ]]; then rm -rf $OUTDIR; fi'
-#    - mkdir -p $OUTDIR/$SFOS_VERSION
-#    - pushd ~/build/
-#    - if [[ $NEWSPEC = "yes" ]]; then specify --non-interactive --skip-scm --not-download -o rpm/$SPECNAME rpm/$YAMLNAME; else echo NEWSPEC is $NEWSPEC; fi
-#    - mb2 -t SailfishOS-$SFOS_VERSION-$TARGET prepare | tee -a $OUTDIR/prepare.log
-#    - cp -rv ~/build/rpm/$SPECNAME $OUTDIR/
-#    - mb2 -t SailfishOS-$SFOS_VERSION-$TARGET build --enable-debug | tee -a $OUTDIR/build.log
-#    - popd
-#    - cp -rv ~/build/RPMS/* $OUTDIR/$SFOS_VERSION
-#    - set > $OUTDIR/environment.log
-#  after_script:
-#    - rm -rf ~/build
 
 include:
   - project: 'nephros/ci-templates'
