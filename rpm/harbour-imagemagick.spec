@@ -96,7 +96,6 @@ Development files for %{name}.
     --without-pango \
     --without-raw \
     --without-x \
-    --without-ziplib \
     --without-zstd
 
 
