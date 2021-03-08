@@ -73,7 +73,6 @@ ConfigOptions:
   - --without-pango
   - --without-raw
   - --without-x
-  - --without-ziplib
   - --without-zstd
 
 Builder: "none"
