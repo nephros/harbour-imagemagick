@@ -1,63 +1,63 @@
-* Mon Mar  8 2021 Nephros <sailfish@nephros.org> 7.0.11.2
+* Mon Mar  8 2021 Nephros <sailfish@nephros.org> - 7.0.11.2
 - version bump
 
-* Tue Feb 16 2021 Nephros <sailfish@nephros.org> 7.0.11.1
+* Tue Feb 16 2021 Nephros <sailfish@nephros.org> - 7.0.11.1
 - version bump
 
-* Mon Feb  1 2021 Nephros <sailfish@nephros.org> 7.0.10.61
+* Mon Feb  1 2021 Nephros <sailfish@nephros.org> - 7.0.10.61
 - version bump
 
-* Sat Jan 16 2021 Nephros <sailfish@nephros.org> 7.0.10.57
+* Sat Jan 16 2021 Nephros <sailfish@nephros.org> - 7.0.10.57
 - version bump
 
-* Tue Dec 29 2020 Nephros <sailfish@nephros.org> 7.0.10.56
+* Tue Dec 29 2020 Nephros <sailfish@nephros.org> - 7.0.10.56
 - version bump
 
-* Tue Dec 29 2020 Nephros <sailfish@nephros.org> 7.0.10.53
+* Tue Dec 29 2020 Nephros <sailfish@nephros.org> - 7.0.10.53
 - version bump
 
-* Tue Oct 13 2020 Nephros <sailfish@nephros.org> 7.0.10.48
+* Tue Oct 13 2020 Nephros <sailfish@nephros.org> - 7.0.10.48
 - version bump
 
-* Tue Oct 13 2020 Nephros <sailfish@nephros.org> 7.0.10.34
+* Tue Oct 13 2020 Nephros <sailfish@nephros.org> - 7.0.10.34
 - version bump
 
-* Thu Oct  8 2020 Nephros <sailfish@nephros.org> 7.0.10.31-3
-- rebuild with split debugging --> smaller package, this time for real
+* Thu Oct  8 2020 Nephros <sailfish@nephros.org> - 7.0.10.31-3
+- rebuild with split debugging --> - smaller package, this time for real
 
-* Thu Oct  8 2020 Nephros <sailfish@nephros.org> 7.0.10.33
+* Thu Oct  8 2020 Nephros <sailfish@nephros.org> - 7.0.10.33
 - version bump
 - split debug build for smaller package
 
-* Wed Sep 30 2020 Nephros <sailfish@nephros.org> 7.0.10.31-2
+* Wed Sep 30 2020 Nephros <sailfish@nephros.org> - 7.0.10.31-2
 - version bump
 - split debug build for smaller package
 - move to yaml+spec building method
 
-* Wed Sep  9 2020 Nephros <sailfish@nephros.org> 7.0.10.29-3
+* Wed Sep  9 2020 Nephros <sailfish@nephros.org> - 7.0.10.29-3
 - integrate with GitLab CI
 
-* Tue Sep  8 2020 Nephros <sailfish@nephros.org> 7.0.10.29-2
+* Tue Sep  8 2020 Nephros <sailfish@nephros.org> - 7.0.10.29-2
 - version bump
 
-* Wed Jul 15 2020 Nephros <sailfish@nephros.org> 7.0.10.23
+* Wed Jul 15 2020 Nephros <sailfish@nephros.org> - 7.0.10.23
 - version bump
 - try new make options, use install-strip for a hopefully smaller binary
 - small spec file adjustments
 - use debug_package macro for stripped debug info
 
-* Sat Jun 20 2020 Nephros <sailfish@nephros.org> 7.0.10.19
+* Sat Jun 20 2020 Nephros <sailfish@nephros.org> - 7.0.10.19
 - version bump
 - first build on SFOS 3.3
 - disable static build
 - disable doc generation/installation
 
-* Thu Apr 23 2020 Nephros <sailfish@nephros.org> 7.0.10.7-1
+* Thu Apr 23 2020 Nephros <sailfish@nephros.org> - 7.0.10.7-1
 - version bump, fix security issue
 
-* Mon Mar  2 2020 Nephros <sailfish@nephros.org> 7.0.9.27-1
+* Mon Mar  2 2020 Nephros <sailfish@nephros.org> - 7.0.9.27-1
 - version bump
 
-* Sun Feb  9 2020 Nephros <sailfish@nephros.org> 7.0.9.22-2
+* Sun Feb  9 2020 Nephros <sailfish@nephros.org> - 7.0.9.22-2
 - run ldconfig in post/postun
 - bump version to -22, move doc and man to -devel package
