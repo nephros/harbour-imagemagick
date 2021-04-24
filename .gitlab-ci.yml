@@ -17,8 +17,9 @@ default:
 ## defaults:
 variables:
   SRCREPO: "https://github.com/ImageMagick/ImageMagick"
-  USE_COMMIT: "yes" # fix for untagged 7.0.11-1
-  SRCTAG: "9f1a8f34c346623372635f9abf00ac6fc24d7cc1" # fix for untagged 7.0.11-1
+  USE_COMMIT: "no"
+  #USE_COMMIT: "yes" # fix for untagged 7.0.11-1
+  #SRCTAG: "9f1a8f34c346623372635f9abf00ac6fc24d7cc1" # fix for untagged 7.0.11-1
   SPECNAME: harbour-imagemagick.spec
   YAMLNAME: harbour-imagemagick.yaml
 
