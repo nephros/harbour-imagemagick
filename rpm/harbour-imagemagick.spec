@@ -11,7 +11,7 @@ Name:       ImageMagick
 %define maj 7
 %define mfr_version %{maj}.0.11
 %define quantum_depth 16
-%define clibver 9
+%define clibver 10
 %define libspec -%{maj}_Q%{quantum_depth}HDRI
 %define source_version %{mfr_version}-%{mfr_revision}
 
