@@ -68,12 +68,12 @@ build-x86:
     - 'RPV=$(rpm --eval %{_libexecdir}/sdk-harbour-rpmvalidator/rpmvalidation.sh)'
     - for f in $(find $OUTDIR -type f -name *.rpm); do echo checking $f ; $RPV -d 0 -c $f 2>&1 > $OUTDIR/${f##*/}_validation.log || continue ; done
 
-testdummy-arm:
+testarm-dummy:
   extends: .testdummy
   needs:
     - job: build-arm
 
-testdummy-arm64:
+testarm64-dummy:
   extends: .testdummy
   needs:
     - job: build-arm64
