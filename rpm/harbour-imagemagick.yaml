@@ -1,7 +1,7 @@
 Name:           ImageMagick
 ### DO NOT FORGET TO BUMP mfr_version below !!!
 ### Also, the builds script needs this to not be a macro
-Version:        7.0.11.14
+Version:        7.1.0.4
 Release:        1
 Summary:        Viewer and Converter for Images
 Group:          Applications/Multimedia
@@ -11,9 +11,9 @@ Sources:
   - "https://imagemagick.org/download/ImageMagick-%{mfr_version}-%{mfr_revision}.tar.xz"
 Macros:
   #- 'debug_build;0'
-  - 'mfr_revision;14'
+  - 'mfr_revision;4'
   - 'maj;7'
-  - 'mfr_version;%{maj}.0.11'
+  - 'mfr_version;%{maj}.1.0'
   - 'quantum_depth;16'
   - 'clibver;10'
   - 'libspec;-%{maj}_Q%{quantum_depth}HDRI'
