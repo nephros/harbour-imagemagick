@@ -1,18 +1,11 @@
 stages:
   - build
   - test
-  - deploy
 
 default:
   image: "coderus/sailfishos-platform-sdk-${TARGET}:${SFOS_VERSION}"
   tags:
     - docker
-  cache:
-    paths:
-      - "/home/.zypp-cache"
-      - "$HOME/myrepo"
-      - "$HOME/build/images/"
-      - "$HOME/test-data"
 
 ## defaults:
 variables:
@@ -26,9 +19,6 @@ variables:
 include:
   - project: 'nephros/ci-templates'
     file: '/sfos/sfos-build-git-remote.yml'
-  - project: 'nobodyinperson/python3-openrepos-webclient'
-    ref: v1.1.1
-    file: 'openrepos-upload-rpm.gitlab-ci.yml'
 
 build-arm:
   stage: build
@@ -45,14 +35,6 @@ build-arm64:
     TARGET: "aarch64"
   before_script:
     - export SRCTAG=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
-
-      #build-amd64:
-      #  stage: build
-      #  extends: .build-bin
-      #  variables:
-      #    TARGET: "amd64"
-      #  before_script:
-      #    - export SRCTAG=$(awk -F ":" '/Version/ {print $2}' rpm/$YAMLNAME | sed -r 's/(.*)\./\1-/')
 
 build-x86:
   stage: build
@@ -111,75 +93,6 @@ test:
   when: manual
   script:
     - "/bin/true"
-
-###
-# deploy
-###
-#
-
-.openrepos-upload-rpm-base:
-  extends: .openrepos-upload-rpm
-  stage: deploy
-  variables:
-    OPENREPOS_USERNAME: nephros
-    #OPENREPOS_PASSWORD: *** better define this via GitLab CI variables ***
-    OPENREPOS_UPLOAD_RPM_APPNAME: ImageMagick
-    # These are needed if your app doesn't exist yet on OpenRepos
-    #OPENREPOS_UPLOAD_RPM_PLATFORM: SailfishOS    # or "Harmattan", etc...
-    #OPENREPOS_UPLOAD_RPM_CATEGORY: Applications  # or "Libraries", etc...
-  needs:
-    #- auto-rebase
-    - build-arm
-    - build-arm64
-    - build-x86
-    - test
-  dependencies:
-    #- auto-rebase
-    - build-arm
-    - build-arm64
-    - build-x86
-    - test
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: manual
-    - if: $CI_COMMIT_BRANCH == 'sfos-fixes' && '$CI_COMMIT_MESSAGE =~ "Release"'
-      when: manual
-  before_script:
-    - |
-      VER=$(awk -F ":" '/^Version: / {print $2}' rpm/$YAMLNAME | xargs echo)
-      REL=$(awk -F ":" '/^Release: / {print $2}' rpm/$YAMLNAME | sed 's/%.*$//' | xargs echo)
-      if [[ -e RPMS/$SFOS_VERSION/youtube-dl-$VER-$REL.$TARGET.rpm ]]; then 
-          cp -v RPMS/$SFOS_VERSION/youtube-dl-$VER-$REL.$TARGET.rpm .
-      else
-          echo RPMS/$SFOS_VERSION/youtube-dl-$VER-$REL.$TARGET.rpm not found
-      fi
-      if [[ -e $CI_PROJECT_DIR/output/$SFOS_VERSION/youtube-dl-$VER-$REL.$TARGET.rpm ]] ; then
-        cp -v $CI_PROJECT_DIR/output/$SFOS_VERSION/youtube-dl-$VER-$REL.$TARGET.rpm . 
-      else
-        echo $CI_PROJECT_DIR/output/$SFOS_VERSION/youtube-dl-$VER-$REL.$TARGET.rpm not found 
-      fi
-      if [[ $( ls *rpm | wc -l ) -le 0 ]]; then
-        echo  no rpms :/
-        exit 1
-      fi
-
-openrepos-upload-rpm-arm:
-  extends: .openrepos-upload-rpm-base
-  stage: deploy
-  variables:
-    TARGET: armv7hl
-
-openrepos-upload-rpm-arm64:
-  extends: .openrepos-upload-rpm-base
-  stage: deploy
-  variables:
-    TARGET: aarch64
-
-openrepos-upload-rpm-x86:
-  extends: .openrepos-upload-rpm-base
-  stage: deploy
-  variables:
-    TARGET: i486
 
 #####
 # LOCAL BUILDER
