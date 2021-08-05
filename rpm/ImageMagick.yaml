@@ -77,6 +77,7 @@ ConfigOptions:
   - --without-zstd
 
 Builder: "none"
+SetupOptions: '-n %{name}-%{version}/upstream'
 
 Files:
   - '%license LICENSE'
