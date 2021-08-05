@@ -65,7 +65,6 @@ Development files for %{name}.
 %setup -q -n %{name}-%{version}/upstream
 
 # >> setup
-%setup -q -n ImageMagick-%{source_version}
 # << setup
 
 %build
