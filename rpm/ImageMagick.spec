@@ -17,11 +17,11 @@ Name:       ImageMagick
 
 Summary:    Viewer and Converter for Images
 Version:    7.1.0.4
-Release:    1
+Release:    1.1
 Group:      Applications/Multimedia
 License:    ImageMagick
 URL:        https://imagemagick.org/
-Source0:    https://imagemagick.org/download/ImageMagick-%{mfr_version}-%{mfr_revision}.tar.xz
+Source0:    %{name}-%{version}.tar.xz
 Source100:  ImageMagick.yaml
 Requires:   libgcc
 Requires:   libgomp

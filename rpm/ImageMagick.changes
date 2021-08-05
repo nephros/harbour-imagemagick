@@ -1,4 +1,7 @@
-* Wed Jul 21 2021 Nephros <sailfish@nephros.org> - 7.1.0.4
+* Wed Jul 21 2021 Nephros <sailfish@nephros.org> - 7.1.0.4-1.1
+- move to OBS/chum
+
+* Wed Jul 21 2021 Nephros <sailfish@nephros.org> - 7.1.0.4-1
 - version bump
 
 * Wed Jun  9 2021 Nephros <sailfish@nephros.org> - 7.0.11.14
