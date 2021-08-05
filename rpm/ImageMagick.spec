@@ -62,7 +62,7 @@ Requires:   %{name} = %{version}-%{release}
 Development files for %{name}.
 
 %prep
-%setup -n %{name}-%{version}/upstream
+%setup -q -n %{name}-%{version}/upstream
 
 # >> setup
 %setup -q -n ImageMagick-%{source_version}
