@@ -59,6 +59,7 @@ Type: console-application
 Categories:
   - Graphics
   - Libraries
+Icon: https://gitlab.com/nephros/harbour-imagemagick/-/blob/obs/files/icon-imagemagick_sfos_256.png
 %endif
 
 
