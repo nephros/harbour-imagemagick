@@ -50,6 +50,15 @@ Description: |
     images, adjust image colors, apply various special effects, or draw text,
     lines, polygons, ellipses and Bézier curves.
 
+    %if "%{?vendor}" == "chum"
+    PackageName: ImageMagick
+    DeveloperName: nephros
+    Type: console-application
+    Categories:
+      - Graphics
+      - Libraries
+    %endif
+
 ConfigOptions:
   - --quiet
   - --enable-silent-rules

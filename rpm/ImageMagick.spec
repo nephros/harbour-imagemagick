@@ -52,6 +52,15 @@ ImageMagick can resize, flip, mirror, rotate, distort, shear and transform
 images, adjust image colors, apply various special effects, or draw text,
 lines, polygons, ellipses and Bézier curves.
 
+%if "%{?vendor}" == "chum"
+PackageName: ImageMagick
+DeveloperName: nephros
+Type: console-application
+Categories:
+  - Graphics
+  - Libraries
+%endif
+
 
 %package devel
 Summary:    Development files for %{name}
