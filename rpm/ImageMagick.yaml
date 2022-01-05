@@ -57,7 +57,7 @@ Description: |
     Categories:
       - Graphics
       - Libraries
-    Icon: https://gitlab.com/nephros/harbour-imagemagick/-/blob/obs/files/icon-imagemagick_sfos_256.png
+    Icon: https://gitlab.com/nephros/harbour-imagemagick/-/raw/obs/files/icon-imagemagick_sfos_256.png
     %endif
 
 ConfigOptions:
