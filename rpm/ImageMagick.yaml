@@ -2,7 +2,7 @@ Name:           ImageMagick
 ### DO NOT FORGET TO BUMP mfr_revision below !!!
 ### Also, the builds script needs this to not be a macro
 Version:        7.1.0.19
-Release:        1.1
+Release:        1.2
 Summary:        Viewer and Converter for Images
 Group:          Applications/Multimedia
 License:        ImageMagick
@@ -52,12 +52,15 @@ Description: |
 
     %if "%{?vendor}" == "chum"
     PackageName: ImageMagick
-    DeveloperName: nephros
+    PackagerName: nephros
     Type: console-application
     Categories:
       - Graphics
       - Libraries
+    Custom:
+      PackagingRepo: https://gitlab.com/nephros/harbour-imagemagick
     Icon: https://gitlab.com/nephros/harbour-imagemagick/-/raw/obs/files/icon-imagemagick_sfos_256.png
+
     %endif
 
 ConfigOptions:

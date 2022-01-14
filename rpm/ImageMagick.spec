@@ -17,7 +17,7 @@ Name:       ImageMagick
 
 Summary:    Viewer and Converter for Images
 Version:    7.1.0.19
-Release:    1.1
+Release:    1.2
 Group:      Applications/Multimedia
 License:    ImageMagick
 URL:        https://imagemagick.org/
@@ -54,12 +54,15 @@ lines, polygons, ellipses and Bézier curves.
 
 %if "%{?vendor}" == "chum"
 PackageName: ImageMagick
-DeveloperName: nephros
+PackagerName: nephros
 Type: console-application
 Categories:
   - Graphics
   - Libraries
-Icon: https://gitlab.com/nephros/harbour-imagemagick/-/blob/obs/files/icon-imagemagick_sfos_256.png
+Custom:
+  PackagingRepo: https://gitlab.com/nephros/harbour-imagemagick
+Icon: https://gitlab.com/nephros/harbour-imagemagick/-/raw/obs/files/icon-imagemagick_sfos_256.png
+
 %endif
 
 
