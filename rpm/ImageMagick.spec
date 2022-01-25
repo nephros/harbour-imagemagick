@@ -55,7 +55,7 @@ lines, polygons, ellipses and Bézier curves.
 
 %if "%{?vendor}" == "chum"
 PackageName: ImageMagick
-DeveloperName: nephros
+PackagerName: nephros
 Type: console-application
 Categories:
   - Graphics
