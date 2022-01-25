@@ -17,7 +17,7 @@ Name:       ImageMagick
 
 Summary:    Viewer and Converter for Images
 Version:    7.1.0.20
-Release:    1.1
+Release:    1.2
 Group:      Applications/Multimedia
 License:    ImageMagick
 URL:        https://imagemagick.org/
@@ -105,7 +105,9 @@ Development files for %{name}.
     --without-openjp2 \
     --without-raw \
     --without-x \
-    --without-zstd
+    --without-zstd \
+    CFLAGS="$RPM_OPT_FLAGS -fPIC -pie" \
+    CXXFLAGS="$RPM_OPT_FLAGS -fPIC -pie"
 
 
 # >> build post

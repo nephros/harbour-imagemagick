@@ -2,7 +2,7 @@ Name:           ImageMagick
 ### DO NOT FORGET TO BUMP mfr_revision below !!!
 ### Also, the builds script needs this to not be a macro
 Version:        7.1.0.20
-Release:        1.1
+Release:        1.2
 Summary:        Viewer and Converter for Images
 Group:          Applications/Multimedia
 License:        ImageMagick
@@ -86,6 +86,30 @@ ConfigOptions:
   - --without-raw
   - --without-x
   - --without-zstd
+  - CFLAGS="$RPM_OPT_FLAGS -fPIC -pie"
+  - CXXFLAGS="$RPM_OPT_FLAGS -fPIC -pie"
+
+  # from: https://fedoraproject.org/wiki/Changes/Harden_All_Packages
+  #
+  # CFLAGS="$RPM_OPT_FLAGS -fPIC -pie"
+  # CXXFLAGS="$RPM_OPT_FLAGS -fPIC -pie"
+  #
+  # export CFLAGS
+  # export CXXFLAGS
+  # 3c. Enable only -z now manually for your package:
+  #
+  # CFLAGS="$RPM_OPT_FLAGS -Wl,-z,relro -Wl,-z,now"
+  # CXXFLAGS="$RPM_OPT_FLAGS -Wl,-z,relro -Wl,-z,now"
+  #
+  # export CFLAGS
+  # export CXXFLAGS
+  # 3d. Enable 3b and 3c above manually for your package:
+  #
+  # CFLAGS="$RPM_OPT_FLAGS -fPIC -pie -Wl,-z,relro -Wl,-z,now"
+  # CXXFLAGS="$RPM_OPT_FLAGS -fPIC -pie -Wl,-z,relro -Wl,-z,now"
+  #
+  # export CFLAGS
+  # export CXXFLAGS
 
 Builder: "none"
 SetupOptions: '-q -n %{name}-%{version}/upstream'
