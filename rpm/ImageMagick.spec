@@ -131,6 +131,7 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
+# >> files
 %license LICENSE
 %dir %{_sysconfdir}/ImageMagick-%{maj}
 %config %{_sysconfdir}/ImageMagick-%{maj}/colors.xml
@@ -146,16 +147,14 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %config %{_sysconfdir}/ImageMagick-%{maj}/type-urw-base35.xml
 %config %{_sysconfdir}/ImageMagick-%{maj}/type-windows.xml
 %config %{_sysconfdir}/ImageMagick-%{maj}/type.xml
-%{_usr}/share/ImageMagick-%{maj}/francais.xml
-%{_usr}/share/ImageMagick-%{maj}/english.xml
-%{_usr}/share/ImageMagick-%{maj}/locale.xml
+%{_datadir}/ImageMagick-%{maj}/francais.xml
+%{_datadir}/ImageMagick-%{maj}/english.xml
+%{_datadir}/ImageMagick-%{maj}/locale.xml
 %{_bindir}/[^MW]*
 %{_libdir}/libMagickCore*.so.%{clibver}*
 %{_libdir}/libMagickWand*.so.%{clibver}*
-%dir %{_libdir}/ImageMagick*
 %{_libdir}/ImageMagick*/config*
 %{_libdir}/ImageMagick*/modules*
-# >> files
 # << files
 
 %files devel

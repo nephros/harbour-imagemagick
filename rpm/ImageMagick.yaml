@@ -89,55 +89,5 @@ ConfigOptions:
 
 Builder: "none"
 SetupOptions: '-q -n %{name}-%{version}/upstream'
-
-Files:
-  - '%license LICENSE'
-  - '%dir %{_sysconfdir}/ImageMagick-%{maj}'
-  - '%config %{_sysconfdir}/ImageMagick-%{maj}/colors.xml'
-  - '%config %{_sysconfdir}/ImageMagick-%{maj}/delegates.xml'
-  - '%config %{_sysconfdir}/ImageMagick-%{maj}/log.xml'
-  - '%config %{_sysconfdir}/ImageMagick-%{maj}/mime.xml'
-  - '%config %{_sysconfdir}/ImageMagick-%{maj}/policy.xml'
-  - '%config %{_sysconfdir}/ImageMagick-%{maj}/quantization-table.xml'
-  - '%config %{_sysconfdir}/ImageMagick-%{maj}/thresholds.xml'
-  - '%config %{_sysconfdir}/ImageMagick-%{maj}/type-apple.xml'
-  - '%config %{_sysconfdir}/ImageMagick-%{maj}/type-dejavu.xml'
-  - '%config %{_sysconfdir}/ImageMagick-%{maj}/type-ghostscript.xml'
-  - '%config %{_sysconfdir}/ImageMagick-%{maj}/type-urw-base35.xml'
-  - '%config %{_sysconfdir}/ImageMagick-%{maj}/type-windows.xml'
-  - '%config %{_sysconfdir}/ImageMagick-%{maj}/type.xml'
-  - '%{_usr}/share/ImageMagick-%{maj}/francais.xml'
-  - '%{_usr}/share/ImageMagick-%{maj}/english.xml'
-  - '%{_usr}/share/ImageMagick-%{maj}/locale.xml'
-  - '%{_bindir}/[^MW]*'
-  - '%{_libdir}/libMagickCore*.so.%{clibver}*'
-  - '%{_libdir}/libMagickWand*.so.%{clibver}*'
-  - '%dir %{_libdir}/ImageMagick*'
-  - '%{_libdir}/ImageMagick*/config*'
-  - '%{_libdir}/ImageMagick*/modules*'
-
 AutoSubPackages:
-    - devel
-#    - debuginfo
-#    - debugsource
-#      Summary:     Development files for ImageMagick
-#      Description: Development files for ImageMagick
-#      Group:       Development/Libraries
-#      Requires:
-#        - 'ImageMagick = %{version}'
-#        - 'glibc-devel'
-#      Files:
-#        - '%doc ChangeLog NEWS.txt'
-#        - '%{_libdir}/libMagickCore*.so'
-#        - '%{_libdir}/libMagickWand*.so'
-#        - '%{_libdir}/libMagickCore*.la'
-#        - '%{_libdir}/libMagickWand*.la'
-#        - '%dir %{_includedir}/ImageMagick*'
-#        - '%{_includedir}/ImageMagick*/MagickCore'
-#        - '%{_includedir}/ImageMagick*/MagickWand'
-#        - '%{_bindir}/MagickCore-config'
-#        - '%{_bindir}/MagickWand-config'
-#        - '%{_libdir}/pkgconfig/MagickCore*.pc'
-#        - '%{_libdir}/pkgconfig/ImageMagick*.pc'
-#        - '%{_libdir}/pkgconfig/MagickWand*.pc'
-
+  - devel
