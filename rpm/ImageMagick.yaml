@@ -1,7 +1,7 @@
 Name:           ImageMagick
 ### DO NOT FORGET TO BUMP mfr_revision below !!!
 ### Also, the builds script needs this to not be a macro
-Version:        7.1.0.19
+Version:        7.1.0.20
 Release:        1.1
 Summary:        Viewer and Converter for Images
 Group:          Applications/Multimedia
@@ -12,24 +12,13 @@ Sources:
   - "%{name}-%{version}.tar.xz"
 Macros:
   #- 'debug_build;0'
-  - 'mfr_revision;19'
+  - 'mfr_revision;20'
   - 'maj;7'
   - 'mfr_version;%{maj}.1.0'
   - 'quantum_depth;16'
   - 'clibver;10'
   - 'libspec;-%{maj}_Q%{quantum_depth}HDRI'
   - 'source_version;%{mfr_version}-%{mfr_revision}'
-
-PkgBR:
-  - gcc
-  - bzip2-devel
-  - libjpeg-turbo-devel
-  - libtool-ltdl-devel
-  - libwebp-devel
-PkgConfigBR:
-  - libpng
-  - libtiff-4
-  - liblzma
 Requires:
   - libgcc
   - libgomp
@@ -40,10 +29,20 @@ Requires:
   - libtiff
   - libwebp
   - xz-libs
-
+PkgBR:
+  - gcc
+  - bzip2-devel
+  - libjpeg-turbo-devel
+  - libtool-ltdl-devel
+  - libwebp-devel
+PkgConfigBR:
+  - libpng
+  - libtiff-4
+  - liblzma
+  - pango
 Description: |
     ImageMagick®  is a software suite to create, edit, compose, or convert
-    bitmap images. 
+    bitmap images.
     It can read and write images in a variety of formats (over 200) including
     PNG, JPEG, GIF, HEIC, TIFF, DPX, EXR, WebP, Postscript, PDF, and SVG.
     ImageMagick can resize, flip, mirror, rotate, distort, shear and transform
@@ -56,8 +55,13 @@ Description: |
     Type: console-application
     Categories:
       - Graphics
-      - Libraries
+      - Library
     Icon: https://gitlab.com/nephros/harbour-imagemagick/-/raw/obs/files/icon-imagemagick_sfos_256.png
+    Custom:
+      PackagingRepo: https://gitlab.com/nephros/harbour-imagemagick
+    Url:
+      Homepage: https://imagemagick.org/
+      Help: https://imagemagick.org/script/command-line-tools.php
     %endif
 
 ConfigOptions:
@@ -81,7 +85,7 @@ ConfigOptions:
   - --without-lqr
   - --without-openexr
   - --without-openjp2
-  - --without-pango
+  # --without-pango
   - --without-raw
   - --without-x
   - --without-zstd

@@ -7,7 +7,7 @@ Name:       ImageMagick
 
 # >> macros
 # << macros
-%define mfr_revision 19
+%define mfr_revision 20
 %define maj 7
 %define mfr_version %{maj}.1.0
 %define quantum_depth 16
@@ -16,7 +16,7 @@ Name:       ImageMagick
 %define source_version %{mfr_version}-%{mfr_revision}
 
 Summary:    Viewer and Converter for Images
-Version:    7.1.0.19
+Version:    7.1.0.20
 Release:    1.1
 Group:      Applications/Multimedia
 License:    ImageMagick
@@ -37,6 +37,7 @@ Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(liblzma)
+BuildRequires:  pkgconfig(pango)
 BuildRequires:  gcc
 BuildRequires:  bzip2-devel
 BuildRequires:  libjpeg-turbo-devel
@@ -45,7 +46,7 @@ BuildRequires:  libwebp-devel
 
 %description
 ImageMagick®  is a software suite to create, edit, compose, or convert
-bitmap images. 
+bitmap images.
 It can read and write images in a variety of formats (over 200) including
 PNG, JPEG, GIF, HEIC, TIFF, DPX, EXR, WebP, Postscript, PDF, and SVG.
 ImageMagick can resize, flip, mirror, rotate, distort, shear and transform
@@ -58,8 +59,13 @@ DeveloperName: nephros
 Type: console-application
 Categories:
   - Graphics
-  - Libraries
-Icon: https://gitlab.com/nephros/harbour-imagemagick/-/blob/obs/files/icon-imagemagick_sfos_256.png
+  - Library
+Icon: https://gitlab.com/nephros/harbour-imagemagick/-/raw/obs/files/icon-imagemagick_sfos_256.png
+Custom:
+  PackagingRepo: https://gitlab.com/nephros/harbour-imagemagick
+Url:
+  Homepage: https://imagemagick.org/
+  Help: https://imagemagick.org/script/command-line-tools.php
 %endif
 
 
@@ -102,7 +108,6 @@ Development files for %{name}.
     --without-lqr \
     --without-openexr \
     --without-openjp2 \
-    --without-pango \
     --without-raw \
     --without-x \
     --without-zstd
