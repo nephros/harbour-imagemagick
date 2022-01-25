@@ -19,19 +19,22 @@ Macros:
   - 'clibver;10'
   - 'libspec;-%{maj}_Q%{quantum_depth}HDRI'
   - 'source_version;%{mfr_version}-%{mfr_revision}'
-Requires:
-  - libgcc
-  - libgomp
-  - bzip2-libs
-  - libjpeg-turbo
-  - libpng
-  - libstdc++
-  - libtiff
-  - libwebp
-  - xz-libs
+#Requires:
+  # libgcc
+  # libstdc++
+  # libgomp
+  # bzip2-libs
+  # xz-libs
+  # libjpeg-turbo
+  # libpng
+  # libtiff
+  # libwebp
 PkgBR:
+  - autoconf
+  - automake
   - gcc
   - bzip2-devel
+  - harfbuzz-devel
   - libjpeg-turbo-devel
   - libtool-ltdl-devel
   - libwebp-devel
@@ -65,7 +68,7 @@ Description: |
     %endif
 
 ConfigOptions:
-  - --quiet
+  # --quiet
   - --enable-silent-rules
   - --enable-shared
   - --disable-docs

@@ -23,23 +23,17 @@ License:    ImageMagick
 URL:        https://imagemagick.org/
 Source0:    %{name}-%{version}.tar.xz
 Source100:  ImageMagick.yaml
-Requires:   libgcc
-Requires:   libgomp
-Requires:   bzip2-libs
-Requires:   libjpeg-turbo
-Requires:   libpng
-Requires:   libstdc++
-Requires:   libtiff
-Requires:   libwebp
-Requires:   xz-libs
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(liblzma)
 BuildRequires:  pkgconfig(pango)
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  gcc
 BuildRequires:  bzip2-devel
+BuildRequires:  harfbuzz-devel
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  libtool-ltdl-devel
 BuildRequires:  libwebp-devel
@@ -88,7 +82,6 @@ Development files for %{name}.
 # << build pre
 
 %configure --disable-static \
-    --quiet \
     --enable-silent-rules \
     --enable-shared \
     --disable-docs \
