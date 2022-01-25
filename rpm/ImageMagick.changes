@@ -1,6 +1,7 @@
 * Tue Jan 25 2022 Nephros <sailfish@nephros.org> - 7.1.0.20-1.1
 - version bump
 - add pango dependency
+- add libxml2 dependency
 - tone down Requires
 
 * Fri Jan 14 2022 Nephros <sailfish@nephros.org> - 7.1.0.19-1.2

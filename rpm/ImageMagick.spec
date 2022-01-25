@@ -25,9 +25,10 @@ Source0:    %{name}-%{version}.tar.xz
 Source100:  ImageMagick.yaml
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
+BuildRequires:  pkgconfig(liblzma)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libtiff-4)
-BuildRequires:  pkgconfig(liblzma)
+BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(pango)
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -53,6 +54,7 @@ PackagerName: nephros
 Type: console-application
 Categories:
   - Graphics
+  - Utility
   - Library
 Icon: https://gitlab.com/nephros/harbour-imagemagick/-/raw/obs/files/icon-imagemagick_sfos_256.png
 Custom:

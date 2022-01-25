@@ -20,15 +20,7 @@ Macros:
   - 'libspec;-%{maj}_Q%{quantum_depth}HDRI'
   - 'source_version;%{mfr_version}-%{mfr_revision}'
 #Requires:
-  # libgcc
-  # libstdc++
-  # libgomp
-  # bzip2-libs
-  # xz-libs
-  # libjpeg-turbo
-  # libpng
-  # libtiff
-  # libwebp
+#  - libfoo
 PkgBR:
   - autoconf
   - automake
@@ -39,9 +31,10 @@ PkgBR:
   - libtool-ltdl-devel
   - libwebp-devel
 PkgConfigBR:
+  - liblzma
   - libpng
   - libtiff-4
-  - liblzma
+  - libxml-2.0
   - pango
 Description: |
     ImageMagick®  is a software suite to create, edit, compose, or convert
@@ -58,6 +51,7 @@ Description: |
     Type: console-application
     Categories:
       - Graphics
+      - Utility
       - Library
     Icon: https://gitlab.com/nephros/harbour-imagemagick/-/raw/obs/files/icon-imagemagick_sfos_256.png
     Custom:
