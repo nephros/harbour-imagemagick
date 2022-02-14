@@ -7,7 +7,7 @@ Name:       ImageMagick
 
 # >> macros
 # << macros
-%define mfr_revision 20
+%define mfr_revision 24
 %define maj 7
 %define mfr_version %{maj}.1.0
 %define quantum_depth 16
@@ -16,8 +16,8 @@ Name:       ImageMagick
 %define source_version %{mfr_version}-%{mfr_revision}
 
 Summary:    Viewer and Converter for Images
-Version:    7.1.0.20
-Release:    1.2
+Version:    7.1.0.24
+Release:    1.1
 Group:      Applications/Multimedia
 License:    ImageMagick
 URL:        https://imagemagick.org/
