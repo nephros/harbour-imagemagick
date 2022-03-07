@@ -17,7 +17,7 @@ Name:       ImageMagick
 
 Summary:    Viewer and Converter for Images
 Version:    7.1.0.27
-Release:    1.1
+Release:    1.2
 Group:      Applications/Multimedia
 License:    ImageMagick
 URL:        https://imagemagick.org/
@@ -58,6 +58,7 @@ Categories:
   - Library
 Icon: https://gitlab.com/nephros/harbour-imagemagick/-/raw/obs/files/icon-imagemagick_sfos_256.png
 Custom:
+  Repo:   https://github.com/ImageMagick/ImageMagick
   PackagingRepo: https://gitlab.com/nephros/harbour-imagemagick
 Url:
   Homepage: https://imagemagick.org/
@@ -162,7 +163,7 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %files devel
 %defattr(-,root,root,-)
 # >> files devel
-%doc ChangeLog NEWS.txt
+%doc ChangeLog.md
 %{_libdir}/libMagickCore*.so
 %{_libdir}/libMagickWand*.so
 %{_libdir}/libMagickCore*.la
