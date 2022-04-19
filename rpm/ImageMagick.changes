@@ -1,3 +1,6 @@
+* Tue Apr 19 2022 Nephros <sailfish@nephros.org> - 7.1.0.30-1.0
+- version bump
+
 * Mon Mar  7 2022 Nephros <sailfish@nephros.org> - 7.1.0.27-1.2
 - version bump
 - fix building - upstream file name change
