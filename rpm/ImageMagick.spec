@@ -17,7 +17,7 @@ Name:       ImageMagick
 
 Summary:    Viewer and Converter for Images
 Version:    7.1.0.31
-Release:    1.0
+Release:    1.1
 Group:      Applications/Multimedia
 License:    ImageMagick
 URL:        https://imagemagick.org/
@@ -163,7 +163,7 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %files devel
 %defattr(-,root,root,-)
 # >> files devel
-%doc ChangeLog.md
+#doc ChangeLog.md
 %{_libdir}/libMagickCore*.so
 %{_libdir}/libMagickWand*.so
 %{_libdir}/libMagickCore*.la
