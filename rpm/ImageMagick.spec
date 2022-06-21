@@ -14,10 +14,14 @@ Name:       ImageMagick
 %define clibver 10
 %define libspec -%{maj}_Q%{quantum_depth}HDRI
 %define source_version %{mfr_version}-%{mfr_revision}
+%define this_is_a_hack see_yaml_for_details
+%if 0%{?sailfishos_version} >= 40400
+BuildRequires:  pkgconfig(libzstd)
+%endif
 
 Summary:    Viewer and Converter for Images
 Version:    7.1.0.39
-Release:    1.1
+Release:    1.2
 Group:      Applications/Multimedia
 License:    ImageMagick
 URL:        https://imagemagick.org/
@@ -29,7 +33,6 @@ BuildRequires:  pkgconfig(liblzma)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(libxml-2.0)
-BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  pkgconfig(pango)
 BuildRequires:  autoconf
 BuildRequires:  automake

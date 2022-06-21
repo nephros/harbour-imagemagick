@@ -2,7 +2,7 @@ Name:           ImageMagick
 ### DO NOT FORGET TO BUMP mfr_revision below !!!
 ### Also, the builds script needs this to not be a macro
 Version:        7.1.0.39
-Release:        1.1
+Release:        1.2
 Summary:        Viewer and Converter for Images
 Group:          Applications/Multimedia
 License:        ImageMagick
@@ -19,6 +19,14 @@ Macros:
   - 'clibver;10'
   - 'libspec;-%{maj}_Q%{quantum_depth}HDRI'
   - 'source_version;%{mfr_version}-%{mfr_revision}'
+  #
+  # Hack: spectacle deletes macros, this works arount this:
+  # libzstd is only in 4.4:
+  - |
+    this_is_a_hack; see_yaml_for_details
+    %if 0%{?sailfishos_version} >= 40400
+    BuildRequires:  pkgconfig(libzstd)
+    %endif
 #Requires:
 #  - libfoo
 PkgBR:
@@ -35,7 +43,7 @@ PkgConfigBR:
   - libpng
   - libtiff-4
   - libxml-2.0
-  - libzstd
+  # libzstd # only in 4.4
   - pango
 Description: |
     ImageMagick®  is a software suite to create, edit, compose, or convert
