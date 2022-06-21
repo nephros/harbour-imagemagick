@@ -17,7 +17,7 @@ Name:       ImageMagick
 
 Summary:    Viewer and Converter for Images
 Version:    7.1.0.39
-Release:    1.0
+Release:    1.1
 Group:      Applications/Multimedia
 License:    ImageMagick
 URL:        https://imagemagick.org/
@@ -30,6 +30,7 @@ BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(pango)
+BuildRequires:  pkgconfig(zstd)
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc
@@ -106,7 +107,7 @@ Development files for %{name}.
     --without-openjp2 \
     --without-raw \
     --without-x \
-    --without-zstd \
+    --with-zstd \
     CFLAGS="$RPM_OPT_FLAGS -fPIC -pie" \
     CXXFLAGS="$RPM_OPT_FLAGS -fPIC -pie"
 
