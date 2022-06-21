@@ -30,7 +30,7 @@ BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(pango)
-BuildRequires:  pkgconfig(zstd)
+BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc

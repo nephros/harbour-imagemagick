@@ -36,7 +36,7 @@ PkgConfigBR:
   - libtiff-4
   - libxml-2.0
   - pango
-  - zstd
+  - libzstd
 Description: |
     ImageMagick®  is a software suite to create, edit, compose, or convert
     bitmap images.
