@@ -1,0 +1,128 @@
+Name:           ImageMagick
+### DO NOT FORGET TO BUMP mfr_revision below !!!
+### Also, the builds script needs this to not be a macro
+Version:        7.1.0.45
+Release:        1.0
+Summary:        Viewer and Converter for Images
+Group:          Applications/Multimedia
+License:        ImageMagick
+URL:            https://imagemagick.org/
+Sources:
+  # "https://imagemagick.org/download/ImageMagick-%{mfr_version}-%{mfr_revision}.tar.xz"
+  - "%{name}-%{version}.tar.xz"
+Macros:
+  #- 'debug_build;0'
+  - 'mfr_revision;45'
+  - 'maj;7'
+  - 'mfr_version;%{maj}.1.0'
+  - 'quantum_depth;16'
+  - 'clibver;10'
+  - 'libspec;-%{maj}_Q%{quantum_depth}HDRI'
+  - 'source_version;%{mfr_version}-%{mfr_revision}'
+  #
+  # Hack: spectacle deletes macros, this works arount this:
+  # libzstd is only in 4.4:
+  - |
+    this_is_a_hack; see_yaml_for_details
+    %if 0%{?sailfishos_version} >= 40400
+    BuildRequires:  pkgconfig(libzstd)
+    %endif
+#Requires:
+#  - libfoo
+PkgBR:
+  - autoconf
+  - automake
+  - gcc
+  - bzip2-devel
+  - harfbuzz-devel
+  - libjpeg-turbo-devel
+  - libtool-ltdl-devel
+  - libwebp-devel
+PkgConfigBR:
+  - liblzma
+  - libpng
+  - libtiff-4
+  - libxml-2.0
+  # libzstd # only in 4.4
+  - pango
+Description: |
+    ImageMagick®  is a software suite to create, edit, compose, or convert
+    bitmap images.
+    It can read and write images in a variety of formats (over 200) including
+    PNG, JPEG, GIF, HEIC, TIFF, DPX, EXR, WebP, Postscript, PDF, and SVG.
+    ImageMagick can resize, flip, mirror, rotate, distort, shear and transform
+    images, adjust image colors, apply various special effects, or draw text,
+    lines, polygons, ellipses and Bézier curves.
+
+    %if "%{?vendor}" == "chum"
+    PackageName: ImageMagick
+    PackagerName: nephros
+    Type: console-application
+    Categories:
+      - Graphics
+      - Utility
+      - Library
+    Icon: https://gitlab.com/nephros/harbour-imagemagick/-/raw/obs/files/icon-imagemagick_sfos_256.png
+    Custom:
+      Repo:   https://github.com/ImageMagick/ImageMagick
+      PackagingRepo: https://gitlab.com/nephros/harbour-imagemagick
+    Url:
+      Homepage: https://imagemagick.org/
+      Help: https://imagemagick.org/script/command-line-tools.php
+    %endif
+
+ConfigOptions:
+  # --quiet
+  - --enable-silent-rules
+  - --enable-shared
+  - --disable-docs
+  - --disable-deprecated
+  - --without-frozenpaths
+  - --without-magick_plus_plus
+  - --with-modules
+  - --without-perl
+  - --without-dps
+  - --without-fftw
+  - --without-flif
+  - --without-fpx
+  - --without-gcc-arch
+  - --without-heic
+  - --without-jbig
+  - --without-lcms
+  - --without-lqr
+  - --without-openexr
+  - --without-openjp2
+  # --without-pango
+  - --without-raw
+  - --without-x
+  # --without-zstd
+  - --with-zstd
+  - CFLAGS="$RPM_OPT_FLAGS -fPIC -pie"
+  - CXXFLAGS="$RPM_OPT_FLAGS -fPIC -pie"
+
+  # from: https://fedoraproject.org/wiki/Changes/Harden_All_Packages
+  #
+  # CFLAGS="$RPM_OPT_FLAGS -fPIC -pie"
+  # CXXFLAGS="$RPM_OPT_FLAGS -fPIC -pie"
+  #
+  # export CFLAGS
+  # export CXXFLAGS
+  # 3c. Enable only -z now manually for your package:
+  #
+  # CFLAGS="$RPM_OPT_FLAGS -Wl,-z,relro -Wl,-z,now"
+  # CXXFLAGS="$RPM_OPT_FLAGS -Wl,-z,relro -Wl,-z,now"
+  #
+  # export CFLAGS
+  # export CXXFLAGS
+  # 3d. Enable 3b and 3c above manually for your package:
+  #
+  # CFLAGS="$RPM_OPT_FLAGS -fPIC -pie -Wl,-z,relro -Wl,-z,now"
+  # CXXFLAGS="$RPM_OPT_FLAGS -fPIC -pie -Wl,-z,relro -Wl,-z,now"
+  #
+  # export CFLAGS
+  # export CXXFLAGS
+
+Builder: "none"
+SetupOptions: '-q -n %{name}-%{version}/upstream'
+AutoSubPackages:
+  - devel
