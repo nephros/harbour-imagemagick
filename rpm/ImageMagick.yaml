@@ -62,10 +62,10 @@ Description: |
       - Graphics
       - Utility
       - Library
-    Icon: https://gitlab.com/nephros/harbour-imagemagick/-/raw/obs/files/icon-imagemagick_sfos_256.png
+    Icon: https://github.com/nephros/harbour-imagemagick/raw/master/files/icon-imagemagick_sfos_256.png
     Custom:
       Repo:   https://github.com/ImageMagick/ImageMagick
-      PackagingRepo: https://gitlab.com/nephros/harbour-imagemagick
+      PackagingRepo: https://github.com/nephros/harbour-imagemagick
     Url:
       Homepage: https://imagemagick.org/
       Help: https://imagemagick.org/script/command-line-tools.php
