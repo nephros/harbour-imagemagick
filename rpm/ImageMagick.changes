@@ -1,3 +1,10 @@
+* Wed Nov  9 2022 Nephros <sailfish@nephros.org> - 7.1.0.52-1.0)
+- version bump
+- move source repo from gitlab to github (old repo is broken)
+
+* Sun Oct 30 2022 Nephros <sailfish@nephros.org> - 7.1.0.51-1.0)
+- version bump
+
 * Mon Jul 18 2022 Nephros <sailfish@nephros.org> - 7.1.0.43-1.0
 - version bump
 
